@@ -1,0 +1,44 @@
+{
+ "packs": [
+  {
+   "id": "starry",
+   "name": "Starry Night",
+   "kind": "feature",
+   "file": "packs/scene-themes.json",
+   "size": 26,
+   "sha256": "2bcf6253c6c5536a68571ab2d59104dfde3349705a66195d9e6efef426817daa"
+  },
+  {
+   "id": "sea",
+   "name": "Under the Sea",
+   "kind": "feature",
+   "file": "packs/scene-themes.json",
+   "size": 26,
+   "sha256": "2bcf6253c6c5536a68571ab2d59104dfde3349705a66195d9e6efef426817daa"
+  },
+  {
+   "id": "stars",
+   "name": "Starfield",
+   "kind": "feature",
+   "file": "packs/scene-themes.json",
+   "size": 26,
+   "sha256": "2bcf6253c6c5536a68571ab2d59104dfde3349705a66195d9e6efef426817daa"
+  },
+  {
+   "id": "blueprint",
+   "name": "Blueprint",
+   "kind": "feature",
+   "file": "packs/scene-themes.json",
+   "size": 26,
+   "sha256": "2bcf6253c6c5536a68571ab2d59104dfde3349705a66195d9e6efef426817daa"
+  },
+  {
+   "id": "pdf",
+   "name": "PDF reader",
+   "kind": "feature",
+   "file": "packs/pdf.json",
+   "size": 17,
+   "sha256": "9f88f375e3113abff6af1f3b903c5678109425fc95f1891f65e1815bc9f010bc"
+  }
+ ]
+}
