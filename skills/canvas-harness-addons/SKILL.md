@@ -5,6 +5,8 @@ description: Make add-ons and utilities for Canvas Harness - ready-made Home lay
 
 # Add-ons and utilities for Canvas Harness
 
+**Works with:** Canvas Harness 3.4 and later for .chpreset files (the next store update; the checker works now). Features made by pull request ship in the release after they are merged.
+
 Canvas Harness replaces the Canvas LMS dashboard. Students can extend it in two ways, and this skill does both:
 
 | You want | Make | How it reaches students |

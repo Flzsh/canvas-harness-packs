@@ -5,6 +5,8 @@ description: Make a companion of your own for Canvas Harness - any creature, obj
 
 # A Canvas Harness pet of your own
 
+**Works with:** Canvas Harness 3.4 and later, which adds .chpet files (the next store update). The checker in `scripts/` works now, so a pet can be made and checked today. Sample: `examples/maple/` (Maple, a pixel red panda).
+
 Canvas Harness has a companion, Biscuit, who walks along the dashboard, rests on things, sleeps when you are away,
 reads while your focus timer runs and cheers when you finish work. By default Biscuit is a small pony. This skill makes
 a different body for Biscuit: a cat, a moth, a robot, a cactus, a pixel dragon, a teacup with legs, anything the student

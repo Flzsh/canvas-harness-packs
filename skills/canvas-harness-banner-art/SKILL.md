@@ -5,6 +5,8 @@ description: Make course artwork for Canvas Harness in any style the student wan
 
 # Canvas Harness course art, in your own style
 
+**Works with:** every Canvas Harness that has Quick upload (in the appearance settings), so it works today.
+
 Canvas Harness is a browser extension that replaces the Canvas LMS dashboard. Each course can carry its own artwork:
 a **banner** across the course heading, and a **frame** and an **icon** for the course's row in the sidebar. This skill
 makes those pieces in whatever style the student likes. There is no house style here: the student's taste decides the

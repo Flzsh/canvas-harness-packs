@@ -5,6 +5,8 @@ description: Make a whole Canvas Harness theme in any style - page background, b
 
 # A Canvas Harness theme of your own
 
+**Works with:** Canvas Harness 3.4 and later, which adds .chtheme files (the next store update). The checker in `scripts/` works now, so a theme can be made and checked today.
+
 Canvas Harness replaces the Canvas LMS dashboard. Its built-in themes (Starfield's photographic night sky with a
 spiral galaxy, Under the Sea's sunlit reef over deep water, Starry Night's painted swirling sky) change the whole page,
 not one course. This skill makes a theme like that in the student's own style: anything from a soft pastel paper look
