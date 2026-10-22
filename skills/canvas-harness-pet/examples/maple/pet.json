@@ -1,0 +1,36 @@
+{
+ "format": "chpet",
+ "version": 1,
+ "name": "Maple",
+ "by": "Canvas Harness",
+ "size": [
+  72,
+  63
+ ],
+ "ground": 60,
+ "faces": "right",
+ "poses": {
+  "stand": "stand",
+  "walk": "walk",
+  "sleep": "sleep",
+  "lie": "lie",
+  "read": "read",
+  "eat": "eat",
+  "flag": "flag",
+  "cheer": "cheer",
+  "fall": "fall",
+  "held": "held"
+ },
+ "assets": {
+  "stand": "stand.svg",
+  "walk": "walk.svg",
+  "sleep": "sleep.svg",
+  "lie": "lie.svg",
+  "read": "read.svg",
+  "eat": "eat.svg",
+  "flag": "flag.svg",
+  "cheer": "cheer.svg",
+  "fall": "fall.svg",
+  "held": "held.svg"
+ }
+}

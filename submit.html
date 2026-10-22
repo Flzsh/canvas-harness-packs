@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Submit yours · Canvas Harness Market</title>
+<style>
+@font-face{font-family:Literata;src:url(assets/literata.woff2) format('woff2');font-weight:400 800;font-display:swap}
+:root{--paper:#FAF9F5;--ink:#141413;--muted:#5E5D59;--clay:#A9522F}
+*{box-sizing:border-box}html{background:var(--paper)}
+body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:
+ radial-gradient(circle at 20% 10%,rgba(20,20,19,.025) 0 1px,transparent 1.5px) 0 0/7px 7px,var(--paper)}
+.wrap{--gut:clamp(16px,3vw,56px);max-width:none;margin:0;padding:0 var(--gut)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0 4px}
+.brand{display:flex;align-items:center;gap:10px;font:700 21px Literata,Georgia,serif}.brand b{color:var(--clay)}
+.hero{position:relative;margin:6px calc(-1 * var(--gut)) 0}.hero>svg{display:block;width:100%;height:clamp(360px,30vw,620px)}
+.hero h1{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-1.2deg);margin:0;padding:10px 26px 12px;font:800 clamp(30px,4.4vw,58px)/1 Literata,Georgia,serif;background:var(--paper);border-radius:4px;box-shadow:4px 5px 0 rgba(20,20,19,.12);display:none}
+.bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:26px 0 0}
+.search{position:relative;width:340px;max-width:100%}.search svg{width:100%;height:auto;display:block}.search input{position:absolute;left:46px;top:9px;width:270px;border:0;background:transparent;font:15px system-ui;outline:none}
+h2.sec{font:800 26px Literata,Georgia,serif;margin:30px 0 4px;display:flex;align-items:center;gap:12px}h2.sec small{font:500 14px system-ui;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:30px 24px;padding:18px 0 10px}
+.grid.feature{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{position:relative;transition:transform .18s cubic-bezier(.2,.7,.3,1)}.card:hover{transform:translateY(-4px) rotate(-.4deg)}
+.pic{position:relative;aspect-ratio:2/1;background:#FFFDF8;box-shadow:5px 6px 0 rgba(20,20,19,.1)}.big .pic{aspect-ratio:16/7}
+.pic>img,.pic>svg:first-child{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pic .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.card footer{display:flex;align-items:center;gap:10px;padding:10px 4px 0}.card footer>div{flex:1;min-width:0}
+.card h3{margin:0;font:700 19px Literata,Georgia,serif}.kind{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.card h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card{cursor:pointer;outline:none}.card:focus-visible .pic{box-shadow:5px 6px 0 rgba(20,20,19,.1),0 0 0 3px #A9522F}
+.card.hide{display:none}.ftab{cursor:pointer;transition:transform .15s}.ftab.on{transform:translateY(-6px)}.ftab:focus-visible{outline:2px solid #A9522F}
+dialog.pack{border:0;padding:0;background:none;width:min(880px,94vw);max-height:92vh;overflow:visible}dialog.pack::backdrop{background:rgba(20,20,19,.45)}
+.pack .in{position:relative;padding:26px 28px 24px}.pack .sheetbg{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.pack .big{position:relative;aspect-ratio:16/7;background:#FFFDF8;box-shadow:5px 6px 0 rgba(20,20,19,.1)}.pack .big .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pack .big>svg:first-child,.pack .big>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pack h2{font:800 30px Literata,Georgia,serif;margin:18px 0 2px}.pack .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.pack .chips li{font:600 13px Literata,Georgia,serif;padding:4px 10px;background:#EBDBBC;border-radius:3px;transform:rotate(-1deg);box-shadow:2px 2px 0 rgba(20,20,19,.12)}.pack .chips li:nth-child(2n){transform:rotate(1.2deg);background:#E3DACC}
+.pack .row{display:flex;align-items:center;gap:16px}.pack .x{margin-left:auto;background:none;border:0;font:600 15px Literata,Georgia,serif;cursor:pointer;color:var(--muted);text-decoration:underline wavy rgba(20,20,19,.3)}
+.add{background:none;border:0;padding:0;cursor:pointer;transform:rotate(-2deg);transition:transform .15s}.add:hover{transform:rotate(-4deg) translateY(-2px)}.tag{width:80px;height:40px;display:block}
+.stamp{width:92px;height:44px;transform:rotate(-7deg)}
+.lamp{animation:glow 3.4s ease-in-out infinite}.smoke{animation:smoke 6s ease-in-out infinite}@keyframes smoke{0%,100%{transform:translate(0,0);opacity:.9}50%{transform:translate(3px,-4px);opacity:.5}}.hand{animation:tick 60s steps(60) infinite}@keyframes tick{to{transform:rotate(360deg)}}@keyframes glow{0%,100%{opacity:.55}50%{opacity:.9}}
+.bunt{animation:sway 4.6s ease-in-out infinite}.b2 .bunt,.bunt.b2{animation-duration:5.3s}@keyframes sway{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+.biscuit .pet-tail{transform-box:fill-box;transform-origin:10% 20%;animation:tail 3.2s ease-in-out infinite}@keyframes tail{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-8deg)}}
+footer.site{margin:50px 0 30px;text-align:center;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){.lamp,.bunt,.smoke,.hand,.biscuit *{animation:none!important}.card,.add{transition:none}}
+.card.is-soon .pic{opacity:.72}.stamp.soon{opacity:.85}#toast{position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:9;max-width:min(560px,calc(100vw - 32px));padding:10px 16px;background:#FFFDF8;color:#141413;font:600 14px/1.4 Literata,Georgia,serif;box-shadow:2px 3px 0 rgb(20 20 19/.18),inset 0 0 0 1.6px #141413;rotate:-.6deg}#toast[hidden]{display:none}#toast a{color:#A9522F}
+.pic .poses{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:4%;padding-bottom:7%;background:linear-gradient(#F4EFF8,#FBF8F2)}.pic .poses img{width:27%;height:auto}
+a.add{display:inline-block;text-decoration:none;color:inherit}a.add[hidden]{display:none}
+.sub-community[hidden]{display:none}
+
+.sub-page{box-sizing:border-box;max-width:1080px;margin:0 auto;padding:0 20px 56px;color:#141413}
+.sub-page *{box-sizing:border-box}.sub-page [hidden]{display:none!important}
+.sub-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-block:26px}
+.sub-top .brand{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font:700 21px Literata,Georgia,serif}.sub-top .brand b{color:#A9522F}
+.sub-back{color:#5E5D59;font:600 14px Literata,Georgia,serif;text-decoration:underline wavy rgb(20 20 19/.3);text-underline-offset:4px}
+.sub-intro{display:flex;align-items:center;gap:28px;margin:22px 0 30px}.sub-intro h1{margin:0 0 6px;font:700 38px/1.15 Literata,Georgia,serif}.sub-intro p{margin:0;color:#5E5D59;font-size:16px;max-width:520px}
+.sub-art{width:150px;flex:none}
+.sub-layout{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(220px,1fr);gap:40px;align-items:start}
+.sub-form{min-width:0}.sub-section{position:relative;border:0;padding:0;margin:0 0 30px;min-width:0}
+.sub-section legend{padding:0;margin-bottom:12px;font:700 20px Literata,Georgia,serif}.sub-section legend span{display:inline-grid;place-items:center;width:28px;height:28px;margin-right:8px;background:#C96442;color:#FFFDF8;font-size:15px;rotate:-4deg;box-shadow:1.5px 2px 0 rgb(20 20 19/.18)}
+.sub-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.sub-drop{position:relative;display:flex;align-items:center;gap:18px;padding:26px 28px;background:#FFFDF8;cursor:pointer;transition:background .15s}.sub-drop:hover,.sub-drop.is-over{background:#FBF3E6}
+.sub-drop strong{display:block;font:700 17px Literata,Georgia,serif}.sub-drop small{display:block;margin-top:4px;color:#5E5D59;font-size:13px}
+.sub-drop input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.sub-drop:focus-within{outline:2px solid #A9522F;outline-offset:3px}
+.sub-drop .sub-choose-tag,.sub-send .sub-send-tag{width:88px;height:44px;flex:none}.sub-drop-text{flex:1;min-width:0}
+.sub-meta{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;padding:16px 20px;margin:16px 0 0;background:#F3E6C8;rotate:-.4deg;box-shadow:2px 3px 0 rgb(20 20 19/.12);font-size:14px}
+.sub-meta dt{color:#5E5D59}.sub-meta dd{margin:0;overflow-wrap:anywhere;font-weight:600}.sub-hash{font:12px ui-monospace,Consolas,monospace!important}
+.sub-field{position:relative;display:block;margin:0 0 20px;font:700 15px Literata,Georgia,serif}
+.sub-field input,.sub-field select{display:block;width:100%;margin-top:4px;padding:8px 2px 10px;border:0;background:transparent;font:16px system-ui,sans-serif;color:#141413;outline:none;appearance:none}
+.sub-field select{cursor:pointer}.sub-field:focus-within .sub-line path{stroke:#A9522F}
+.sub-line{display:block;width:100%;height:6px;margin-top:-4px}
+.sub-tick{display:flex;gap:12px;align-items:flex-start;margin:14px 0;font-size:15px;cursor:pointer}.sub-tick input{position:absolute;opacity:0;width:1px;height:1px}
+.sub-box{width:22px;height:22px;flex:none;margin-top:1px}.sub-tickmark{opacity:0;transition:opacity .12s}.sub-tick input:checked+.sub-box .sub-tickmark{opacity:1}.sub-tick input:focus-visible+.sub-box{outline:2px solid #A9522F;outline-offset:2px}
+.sub-send{display:inline-flex;align-items:center;gap:14px;padding:0;border:0;background:none;cursor:pointer;font:inherit}.sub-send:disabled{cursor:not-allowed;opacity:.45}.sub-send:not(:disabled):hover .sub-send-tag{rotate:-2deg}
+.sub-note{color:#5E5D59;font-size:14px;margin:4px 0 14px}
+.sub-status{min-height:24px;margin:14px 0;color:#5E5D59;overflow-wrap:anywhere}
+.sub-result{position:relative;padding:18px 22px;margin-top:16px;background:#E9F0E1;rotate:.3deg;box-shadow:2px 3px 0 rgb(20 20 19/.12)}.sub-result p{margin:0 0 8px}
+.sub-links{display:flex;gap:20px;flex-wrap:wrap}.sub-links a{color:#A9522F;font:700 15px Literata,Georgia,serif}
+.sub-rules{position:relative;padding:22px 24px;background:#FFFDF8}.sub-rules h2{margin:0 0 10px;font:700 18px Literata,Georgia,serif}
+.sub-rules ul{list-style:none;padding:0;margin:0}.sub-rules li{position:relative;padding-left:22px;margin:10px 0;font-size:14.5px}.sub-rules li::before{content:"";position:absolute;left:2px;top:7px;width:9px;height:9px;background:#C96442;rotate:45deg}
+.sub-rules p{color:#5E5D59;font-size:13px;margin:14px 0 0}
+footer.site{margin-top:40px;text-align:center;color:#5E5D59;font-size:13px}
+@media(max-width:760px){.sub-layout{grid-template-columns:minmax(0,1fr);gap:20px}.sub-intro{flex-direction:column;align-items:flex-start}.sub-art{width:110px}.sub-drop{flex-direction:column;align-items:flex-start}}
+</style>
+<script src="submission-client.js" defer></script>
+</head>
+<body>
+<div class="sub-page">
+<header class="sub-top"><a class="brand" href="index.html"><svg class="" viewBox="0 0 30 30" aria-hidden="true" width="30" height="30"><path fill="#D97757" d="M25.8 15c0 2.6-1.1 6.1-2.9 7.9c-1.8 1.8-5.3 3.1-7.9 3.1c-2.6 0-6.1-1.2-7.9-3.1c-1.9-1.8-3.4-5.3-3.4-7.9c0-2.6 1.7-5.8 3.6-7.7c1.9-1.9 5.1-3.4 7.7-3.4c2.6-.1 6.2 1.2 8 3.1c1.8 1.9 2.8 5.4 2.8 8z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14.7 3.7c2.6-.1 5.9 1.4 7.9 3.3c1.9 1.8 3.7 5.1 3.7 7.7c.1 2.6-1.5 5.9-3.4 7.8c-1.8 1.9-5 3.4-7.6 3.5c-2.6 .1-6.2-1-8.1-2.8c-1.9-1.7-3.2-5.2-3.3-7.9c0-2.6 1.2-6.1 3-7.9c1.8-1.8 5.9-2.7 7.8-2.9c1.9-.3 3.1 1.2 3.7 1.4"/><path fill="#FAF9F5" d="M18.9 15c0 1.2-.9 2.9-1.9 3.5c-1 .5-2.9 .5-3.9-.1c-1.1-.6-2.2-2.3-2.2-3.4c0-1.1 1.1-2.9 2.1-3.5c1-.5 3-.5 4 .1c1 .6 1.9 2.2 1.9 3.4z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M14.9 10.9c1.1 0 2.9 1 3.5 2c.7 1 .7 3 .1 4c-.5 1-2.2 2.1-3.4 2.1c-1.1 .1-2.9-1-3.5-1.9c-.5-1-.6-3 0-4c.5-.9 2.5-1.7 3.3-1.9c.8-.2 1.4 .7 1.7 .9"/></svg>Canvas Harness <b>Market</b></a><a class="sub-back" href="index.html">Back to the shelves</a></header>
+<main>
+<div class="sub-intro"><svg class="sub-art" viewBox="0 0 146 112" aria-hidden="true"><path d="M22.1 40.4 L69.8 36.5 L117.8 34.2 L120.6 64.8 L124.3 95.9 L75.1 99.4 L26.4 102.0 L23.8 70.9 L23.1 40.7" fill="#141413" opacity=".1" transform="translate(3 3.6)"/><path d="M22.0 40.1 L69.7 37.4 L117.7 34.3 L120.5 64.8 L123.9 96.0 L75.1 99.2 L26.2 101.9 L24.4 70.5 L23.0 40.4" fill="#D4A27F" transform="translate(1.3 1.5)"/><path d="M21.6 39.9 L70.4 36.5 L118.3 34.1 L113.4 27.9 L108.2 22.3 L61.1 25.2 L13.8 28.3 L18.3 34.4 L22.6 40.2" fill="#E3C29E" transform="translate(1.3 1.5)"/><path d="M22.1 40.0 L70.3 36.7 L117.7 34.0 L120.7 64.9 L124.0 96.3 L74.9 98.6 L26.2 102.2 L24.5 70.5 L23.1 40.3" fill="none" stroke="#141413" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M22.2 39.7 L69.8 37.4 L117.9 33.6 L113.0 28.4 L108.1 21.6 L60.5 24.8 L14.4 28.0 L18.2 34.2 L23.2 40.0" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M70.0 36.7 L73.1 99.0" fill="none" stroke="#9A6440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M24.4 69.7 L121.3 64.2" fill="none" stroke="#9A6440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M60.1 29.8 Q68.2 22.1 71.1 26.6 L74.0 31.1" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M74.0 31.1 Q82.1 22.0 84.2 25.9 L86.3 29.7" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M85.9 30.2 Q92.0 49.8 94.9 58.8 L97.8 67.9" fill="none" stroke="#5E5D59" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M96.2 65.8 L110.5 62.5 L126.4 60.4 L129.4 67.4 L131.9 73.9 L116.8 78.6 L101.6 82.2 L98.4 73.9 L97.2 66.1" fill="#F6DE9A" transform="translate(1.3 1.5)"/><path d="M96.1 66.4 L111.3 62.8 L125.7 60.0 L128.8 66.5 L131.7 74.4 L116.6 77.5 L102.1 82.3 L99.2 74.3 L97.1 66.7" fill="none" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="101" cy="72" r="2" fill="#FFFDF8" stroke="#141413" stroke-width="1.2"/><path d="M107.9 69.9 L124.2 66.9" fill="none" stroke="#141413" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M110.1 74.9 L121.8 73.2" fill="none" stroke="#141413" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/><path d="M36.0 81.9 L42.0 76.1" fill="none" stroke="#141413" stroke-width="1" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><path d="M40.1 86.1 L46.1 80.0" fill="none" stroke="#141413" stroke-width="1" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/><path d="M43.9 90.1 L50.1 83.9" fill="none" stroke="#141413" stroke-width="1" opacity=".5" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h1>Submit yours</h1><p>Made something with a skill? Send it in. A person checks every pack before it goes on a shelf.</p></div></div>
+<div class="sub-layout">
+<form id="sub-form" class="sub-form" novalidate>
+<fieldset class="sub-section"><legend><span>1</span>Your pack</legend>
+<label id="sub-drop" class="sub-drop" for="sub-file"><svg class="sub-frame" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M1.2 1.6 L50.0 1.5 L98.8 1.0 L98.5 49.6 L99.1 98.6 L49.8 98.9 L1.1 99.0 L0.9 50.2 L2.2 1.9" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" stroke-dasharray="7 6"/></svg><span class="sub-drop-text"><strong>Drop your pack here</strong><small>.chpack · .chkit · .chtheme · .chpet · .chpreset · up to 40 MB</small></span><svg class="tag sub-choose-tag" viewBox="0 0 80 40" aria-hidden="true"><path fill="#141413" opacity="0.14" d="M11.2 6.7c20.4 .7 40.8 1.2 61.2 1.4c-.5 9-.9 18.1-1.5 27.1c-20.4-.1-40.7-.9-61.1-1.5c-2.2-4.1-4.5-8.2-6.8-12.3z"/><path fill="#D4A27F" d="M9 3.9c20.2 .1 40.4 .5 60.7 1.1c-.4 9-.5 18-.9 27c-20.2-.3-40.5-.8-60.7-.9c-2.5-4.2-4.9-8.5-7.4-12.7z"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8.9 4.2c20.3 .6 40.5 .6 60.8 .6c.1 9-.3 18-.4 26.9c-20.4 .1-40.7-.9-61.1-.8c-2.4-4.3-4.9-8.6-7.3-12.9c3.2-4.4 6-9 9.2-13.4"/><path fill="#FAF9F5" d="M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" d="M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6"/><text x="41" y="23" font-family="Literata,Georgia,serif" font-weight="700" font-size="12.5" fill="#141413" text-anchor="middle">Choose</text></svg><input id="sub-file" type="file" accept=".chpack,.chkit,.chtheme,.chpet,.chpreset" aria-describedby="sub-file-help sub-check-limit"></label>
+<p id="sub-file-help" hidden>One UTF-8 file, at most 40 MB. Data only: art, colours, framing, poses or settings.</p>
+<dl id="sub-metadata" class="sub-meta" hidden><dt>Name</dt><dd id="sub-name"></dd><dt>Kind</dt><dd id="sub-kind"></dd><dt>Size</dt><dd id="sub-size"></dd><dt>SHA-256</dt><dd id="sub-sha256" class="sub-hash"></dd></dl>
+<p id="sub-check-limit" hidden>This page checks the file's size, format and name and works out its SHA-256. The full Canvas Harness check runs on GitHub after you send it, and the owner looks at it too.</p>
+</fieldset>
+<fieldset class="sub-section"><legend><span>2</span>Credit</legend>
+<label class="sub-field" for="sub-credit">Name to credit<input id="sub-credit" type="text" maxlength="60" required autocomplete="off" placeholder="A name or nickname" aria-describedby="sub-credit-help"><svg class="sub-line" viewBox="0 0 400 6" preserveAspectRatio="none" aria-hidden="true"><path d="M1.9 3.4 Q100.1 4.0 150.0 3.4 Q199.8 2.9 250.0 3.3 Q300.2 3.8 349.0 3.1 L397.8 2.4" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></label><p id="sub-credit-help" hidden>Up to 60 characters; shown publicly as "by ...".</p>
+<label class="sub-field" for="sub-licence">Licence<select id="sub-licence" required><option value="">Choose</option><option value="CC BY 4.0">CC BY 4.0 · others may reuse it and credit you</option><option value="CC0 1.0">CC0 1.0 · free for anyone, no credit needed</option></select><svg class="sub-line" viewBox="0 0 400 6" preserveAspectRatio="none" aria-hidden="true"><path d="M1.9 3.4 Q100.1 4.0 150.0 3.4 Q199.8 2.9 250.0 3.3 Q300.2 3.8 349.0 3.1 L397.8 2.4" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg></label>
+<label class="sub-tick"><input id="sub-rights" type="checkbox" required><svg class="sub-box" viewBox="0 0 22 22" aria-hidden="true"><path d="M2.8 3.3 L10.6 2.6 L19.8 2.2 L19.5 11.0 L19.9 19.3 L10.9 20.1 L2.7 19.5 L2.6 11.2 L3.8 3.6" fill="#FFFDF8" transform="translate(1.3 1.5)"/><path d="M2.8 3.3 L10.6 2.6 L19.8 2.2 L19.5 11.0 L19.9 19.3 L10.9 20.1 L2.7 19.5 L2.6 11.2 L3.8 3.6" fill="none" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path class="sub-tickmark" d="M5.5 11.5 L9.5 15.5 L17 5.5" fill="none" stroke="#A9522F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>I made this, or have the right to share it: no copied characters, logos or other people's photos</span></label>
+<label class="sub-tick"><input id="sub-privacy" type="checkbox" required><svg class="sub-box" viewBox="0 0 22 22" aria-hidden="true"><path d="M2.8 3.3 L10.6 2.6 L19.8 2.2 L19.5 11.0 L19.9 19.3 L10.9 20.1 L2.7 19.5 L2.6 11.2 L3.8 3.6" fill="#FFFDF8" transform="translate(1.3 1.5)"/><path d="M2.8 3.3 L10.6 2.6 L19.8 2.2 L19.5 11.0 L19.9 19.3 L10.9 20.1 L2.7 19.5 L2.6 11.2 L3.8 3.6" fill="none" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path class="sub-tickmark" d="M5.5 11.5 L9.5 15.5 L17 5.5" fill="none" stroke="#A9522F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>No names, school details or personal information inside</span></label>
+</fieldset>
+<p class="sub-note">Send downloads a zip and opens GitHub. Attach the zip there and press Submit. You need a free GitHub account.</p>
+<button id="sub-send" class="sub-send" type="submit" disabled aria-label="Send"><svg class="tag sub-send-tag" viewBox="0 0 80 40" aria-hidden="true"><path fill="#141413" opacity="0.14" d="M11.2 6.7c20.4 .7 40.8 1.2 61.2 1.4c-.5 9-.9 18.1-1.5 27.1c-20.4-.1-40.7-.9-61.1-1.5c-2.2-4.1-4.5-8.2-6.8-12.3z"/><path fill="#D4A27F" d="M9 3.9c20.2 .1 40.4 .5 60.7 1.1c-.4 9-.5 18-.9 27c-20.2-.3-40.5-.8-60.7-.9c-2.5-4.2-4.9-8.5-7.4-12.7z"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8.9 4.2c20.3 .6 40.5 .6 60.8 .6c.1 9-.3 18-.4 26.9c-20.4 .1-40.7-.9-61.1-.8c-2.4-4.3-4.9-8.6-7.3-12.9c3.2-4.4 6-9 9.2-13.4"/><path fill="#FAF9F5" d="M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" d="M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6"/><text x="41" y="23" font-family="Literata,Georgia,serif" font-weight="700" font-size="14" fill="#141413" text-anchor="middle">Send</text></svg></button>
+<p id="sub-status" class="sub-status" role="status" aria-live="polite" aria-atomic="true">Choose a pack to begin.</p>
+<div id="sub-result" class="sub-result" hidden><p>Attach the downloaded zip on GitHub and press Submit.</p><div class="sub-links"><a id="sub-github" target="_blank" rel="noopener noreferrer">Open GitHub</a><a id="sub-download" download>Download the zip again</a></div></div>
+<noscript><p>This page needs JavaScript to check your file and make the zip. Nothing is sent from this page.</p></noscript>
+</form>
+<aside class="sub-rules"><svg class="sub-frame" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="M1.2 1.3 L50.1 1.4 L98.7 1.2 L98.6 49.9 L98.7 98.5 L50.0 98.9 L1.3 98.7 L1.4 50.3 L2.2 1.6" fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg><h2>On the shelf when</h2><ul><li>It is your own work</li><li>No personal or school details</li><li>Reading areas stay calm</li><li>It is data only: art, colours, poses, settings</li><li>A person has looked at it</li></ul><p>Your GitHub issue is public. Ask there to take something down.</p></aside>
+</div>
+</main>
+<footer class="site">Canvas Harness Market</footer>
+</div>
+</body>
+</html>

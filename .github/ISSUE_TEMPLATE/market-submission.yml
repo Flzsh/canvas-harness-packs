@@ -1,0 +1,64 @@
+name: Market submission
+description: Submit a data-only Canvas Harness pack for owner review.
+title: '[Market] '
+labels: [submission]
+body:
+  - type: markdown
+    attributes:
+      value: Use the Market's Submit yours page first. Attach its downloaded zip below. Submissions and attachments are public. Nothing appears in the Market until the owner reviews and merges it.
+  - type: input
+    id: name
+    attributes:
+      label: Pack name
+      description: The name inside the pack.
+    validations:
+      required: true
+  - type: input
+    id: credit
+    attributes:
+      label: Credit
+      description: A display name, up to 60 characters. This will appear as “by …”. Use a nickname for privacy.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options: [course-art, kit, theme, pet, preset]
+    validations:
+      required: true
+  - type: dropdown
+    id: licence
+    attributes:
+      label: Licence
+      options: [CC BY 4.0, CC0 1.0]
+    validations:
+      required: true
+  - type: input
+    id: sha256
+    attributes:
+      label: SHA-256
+      description: Copy all 64 characters from the submission page.
+    validations:
+      required: true
+  - type: textarea
+    id: attachment
+    attributes:
+      label: Attachment
+      description: Attach the downloaded zip here using GitHub's attachment button or drag and drop. It must contain just your pack file.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: 'I made this, or have the right to share it: no copied characters, logos or other people''s photos'
+          required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy
+      options:
+        - label: No names, school details or personal information inside
+          required: true
