@@ -10,5 +10,17 @@
     "sha256": "8675051a533f1e90007ce998d43ecb6a1c87fdeb1b8ad4392ffbbe0011f88810",
     "picture": "community/lilac-8675051a533f/picture.svg",
     "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/1"
+  },
+  {
+    "id": "calculus-shape-of-change-435df589226b",
+    "name": "Calculus — Shape of Change",
+    "by": "Gary",
+    "licence": "CC BY 4.0",
+    "kind": "course-art",
+    "file": "community/calculus-shape-of-change-435df589226b/calculus-shape-of-change-435df589226b.chpack",
+    "size": 33364,
+    "sha256": "435df589226ba6c41d465ccfc4d5ff198723f26c14c82e4677f1bed31c911122",
+    "picture": "community/calculus-shape-of-change-435df589226b/picture.svg",
+    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/2"
   }
 ]
