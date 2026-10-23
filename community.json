@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "swiss-editorial-c8965201fb0f",
+    "name": "Swiss Editorial",
+    "by": "HarryX081125",
+    "licence": "CC BY 4.0",
+    "kind": "theme",
+    "file": "community/swiss-editorial-c8965201fb0f/swiss-editorial-c8965201fb0f.chtheme",
+    "size": 7374,
+    "sha256": "c8965201fb0f02ed2f74f5604cde4227323acbaa3cc4cd7ca3e8ac07f231c518",
+    "picture": "community/swiss-editorial-c8965201fb0f/picture.svg",
+    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/5"
+  }
+]
