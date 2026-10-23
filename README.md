@@ -6,8 +6,9 @@ Everything here is data: `packs.json` lists each pack with its size and SHA-256,
 it adds anything. Canvas Harness never downloads code; a feature pack only switches on a feature that ships inside the
 extension.
 
-`skills/` holds four skills for your own AI (banner art, a whole theme, a pet, add-ons and utilities): instructions plus
-small Node scripts that run on your computer to check and pack what the AI makes. Each is also a zip on the page.
+`skills/` holds five skills for your own AI: banner art, a whole theme, a pet, add-ons and utilities, and contributing
+to Canvas Harness. The first four check and pack personal creations; the fifth guides a contributor's AI and checks
+a clone before a pull request. Each is self-contained and also offered as a zip on the page.
 
 ## Submit a pack
 

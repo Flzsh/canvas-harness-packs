@@ -47,6 +47,66 @@
    "file": "packs/maple.chpet",
    "size": 290166,
    "sha256": "6b13765037ed2c4a79a0b1a2d90567a571a46998aea4f48c64bda7792fc16dba"
+  },
+  {
+   "id": "lilac-8675051a533f",
+   "name": "Lilac",
+   "by": "Gary",
+   "licence": "CC BY 4.0",
+   "kind": "pet",
+   "file": "community/lilac-8675051a533f/lilac-8675051a533f.chpet",
+   "size": 91068,
+   "sha256": "8675051a533f1e90007ce998d43ecb6a1c87fdeb1b8ad4392ffbbe0011f88810",
+   "picture": "community/lilac-8675051a533f/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/1"
+  },
+  {
+   "id": "calculus-shape-of-change-435df589226b",
+   "name": "Calculus — Shape of Change",
+   "by": "Gary",
+   "licence": "CC BY 4.0",
+   "kind": "course-art",
+   "file": "community/calculus-shape-of-change-435df589226b/calculus-shape-of-change-435df589226b.chpack",
+   "size": 33364,
+   "sha256": "435df589226ba6c41d465ccfc4d5ff198723f26c14c82e4677f1bed31c911122",
+   "picture": "community/calculus-shape-of-change-435df589226b/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/2"
+  },
+  {
+   "id": "biology-living-systems-8333762a50ff",
+   "name": "Biology — Living Systems",
+   "by": "Gary",
+   "licence": "CC BY 4.0",
+   "kind": "course-art",
+   "file": "community/biology-living-systems-8333762a50ff/biology-living-systems-8333762a50ff.chpack",
+   "size": 29642,
+   "sha256": "8333762a50ffe123e2ac55ec2aeb275bbed454f66f7a28dbdc0d853acc20dbcd",
+   "picture": "community/biology-living-systems-8333762a50ff/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/3"
+  },
+  {
+   "id": "us-history-an-unfinished-record-e122432f12fe",
+   "name": "US History — An Unfinished Record",
+   "by": "Gary",
+   "licence": "CC BY 4.0",
+   "kind": "course-art",
+   "file": "community/us-history-an-unfinished-record-e122432f12fe/us-history-an-unfinished-record-e122432f12fe.chpack",
+   "size": 20460,
+   "sha256": "e122432f12febeceab746295c8645954969014fb2f856b279062135139ae593c",
+   "picture": "community/us-history-an-unfinished-record-e122432f12fe/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/4"
+  },
+  {
+   "id": "swiss-editorial-c8965201fb0f",
+   "name": "Swiss Editorial",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/swiss-editorial-c8965201fb0f/swiss-editorial-c8965201fb0f.chtheme",
+   "size": 7374,
+   "sha256": "c8965201fb0f02ed2f74f5604cde4227323acbaa3cc4cd7ca3e8ac07f231c518",
+   "picture": "community/swiss-editorial-c8965201fb0f/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/5"
   }
  ]
 }
