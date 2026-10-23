@@ -34,5 +34,17 @@
     "sha256": "8333762a50ffe123e2ac55ec2aeb275bbed454f66f7a28dbdc0d853acc20dbcd",
     "picture": "community/biology-living-systems-8333762a50ff/picture.svg",
     "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/3"
+  },
+  {
+    "id": "us-history-an-unfinished-record-e122432f12fe",
+    "name": "US History — An Unfinished Record",
+    "by": "Gary",
+    "licence": "CC BY 4.0",
+    "kind": "course-art",
+    "file": "community/us-history-an-unfinished-record-e122432f12fe/us-history-an-unfinished-record-e122432f12fe.chpack",
+    "size": 20460,
+    "sha256": "e122432f12febeceab746295c8645954969014fb2f856b279062135139ae593c",
+    "picture": "community/us-history-an-unfinished-record-e122432f12fe/picture.svg",
+    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/4"
   }
 ]
