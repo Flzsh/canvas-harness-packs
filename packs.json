@@ -1,52 +1,64 @@
 {
- "packs": [
-  {
-   "id": "starry",
-   "name": "Starry Night",
-   "kind": "feature",
-   "file": "packs/theme-starry.json",
-   "size": 48,
-   "sha256": "fc92db73d0e9c5ccbbb259d2451a9797258f581d4ce8eb1bb0444a2c0f33625f"
-  },
-  {
-   "id": "sea",
-   "name": "Under the Sea",
-   "kind": "feature",
-   "file": "packs/theme-sea.json",
-   "size": 45,
-   "sha256": "9cf60eb8a2ab5e0e2d7eb6f71b2c173972062372e3345a3d7d08ad107e368b16"
-  },
-  {
-   "id": "stars",
-   "name": "Starfield",
-   "kind": "feature",
-   "file": "packs/theme-stars.json",
-   "size": 47,
-   "sha256": "165d642f86dcb041588234841d80a90d0e8c119c98ff69b59ae2ca3b05fa2306"
-  },
-  {
-   "id": "blueprint",
-   "name": "Blueprint",
-   "kind": "feature",
-   "file": "packs/theme-blueprint.json",
-   "size": 51,
-   "sha256": "90191ce461e527954b305e2378a6a43aa86278961a52ed281f23835b64a88d10"
-  },
-  {
-   "id": "lantern-hills",
-   "name": "Lantern hills",
-   "kind": "course-art",
-   "file": "packs/lantern-hills.chpack",
-   "size": 14025,
-   "sha256": "85292933766e32f62206899f322bfe57d765d35d575cc4f3dd2559c997278a45"
-  },
-  {
-   "id": "maple",
-   "name": "Maple",
-   "kind": "pet",
-   "file": "packs/maple.chpet",
-   "size": 290166,
-   "sha256": "6b13765037ed2c4a79a0b1a2d90567a571a46998aea4f48c64bda7792fc16dba"
-  }
- ]
+  "packs": [
+    {
+      "id": "starry",
+      "name": "Starry Night",
+      "kind": "feature",
+      "file": "packs/theme-starry.json",
+      "size": 48,
+      "sha256": "fc92db73d0e9c5ccbbb259d2451a9797258f581d4ce8eb1bb0444a2c0f33625f"
+    },
+    {
+      "id": "sea",
+      "name": "Under the Sea",
+      "kind": "feature",
+      "file": "packs/theme-sea.json",
+      "size": 45,
+      "sha256": "9cf60eb8a2ab5e0e2d7eb6f71b2c173972062372e3345a3d7d08ad107e368b16"
+    },
+    {
+      "id": "stars",
+      "name": "Starfield",
+      "kind": "feature",
+      "file": "packs/theme-stars.json",
+      "size": 47,
+      "sha256": "165d642f86dcb041588234841d80a90d0e8c119c98ff69b59ae2ca3b05fa2306"
+    },
+    {
+      "id": "blueprint",
+      "name": "Blueprint",
+      "kind": "feature",
+      "file": "packs/theme-blueprint.json",
+      "size": 51,
+      "sha256": "90191ce461e527954b305e2378a6a43aa86278961a52ed281f23835b64a88d10"
+    },
+    {
+      "id": "lantern-hills",
+      "name": "Lantern hills",
+      "kind": "course-art",
+      "file": "packs/lantern-hills.chpack",
+      "size": 14025,
+      "sha256": "85292933766e32f62206899f322bfe57d765d35d575cc4f3dd2559c997278a45"
+    },
+    {
+      "id": "maple",
+      "name": "Maple",
+      "kind": "pet",
+      "file": "packs/maple.chpet",
+      "size": 290166,
+      "sha256": "6b13765037ed2c4a79a0b1a2d90567a571a46998aea4f48c64bda7792fc16dba"
+    },
+    {
+      "id": "calculus-shape-of-change-435df589226b",
+      "name": "Calculus — Shape of Change",
+      "by": "Gary",
+      "licence": "CC BY 4.0",
+      "kind": "course-art",
+      "file": "community/calculus-shape-of-change-435df589226b/calculus-shape-of-change-435df589226b.chpack",
+      "size": 33364,
+      "sha256": "435df589226ba6c41d465ccfc4d5ff198723f26c14c82e4677f1bed31c911122",
+      "picture": "community/calculus-shape-of-change-435df589226b/picture.svg",
+      "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/2"
+    }
+  ]
 }
