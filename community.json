@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "biology-living-systems-8333762a50ff",
+    "name": "Biology — Living Systems",
+    "by": "Gary",
+    "licence": "CC BY 4.0",
+    "kind": "course-art",
+    "file": "community/biology-living-systems-8333762a50ff/biology-living-systems-8333762a50ff.chpack",
+    "size": 29642,
+    "sha256": "8333762a50ffe123e2ac55ec2aeb275bbed454f66f7a28dbdc0d853acc20dbcd",
+    "picture": "community/biology-living-systems-8333762a50ff/picture.svg",
+    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/3"
+  }
+]
