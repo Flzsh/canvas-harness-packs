@@ -7,7 +7,8 @@ const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const { TextDecoder } = require('node:util');
 
-const BASE = 'refs/remotes/origin/main';
+// The pull request's target branch: main (3.x) by default, or preview/4.0 for the 4.0 previews.
+const BRANCH = /^(?!.*\.\.)(?!.*\.lock(?:\/|$))[A-Za-z0-9][A-Za-z0-9._-]*(?:\/[A-Za-z0-9][A-Za-z0-9._-]*)*$/;
 const ZERO = /^0+$/;
 const NO_REPLY = /^(?:[0-9]+\+)?[a-z0-9]+(?:-[a-z0-9]+)*@users\.noreply\.github\.com$/i;
 const TEXT = /\.(?:[cm]?[jt]sx?|jsonc?|mdx?|txt|csv|tsv|html?|css|s[ac]ss|less|svg|ya?ml|toml|xml|ini|conf|cfg|sh|bash|bat|cmd|ps1|py|rb|go|rs|[ch]|cpp|hpp|java|sql|lock|vue|svelte)$/i;
@@ -131,9 +132,13 @@ function manifest(buffer) {
   return result;
 }
 
-function check(cwd = process.cwd()) {
+function check(cwd = process.cwd(), { base = 'main' } = {}) {
   const report = [];
   const emit = (level, code, detail) => report.push(`${level} ${code} ${detail}`);
+  if (typeof base !== 'string' || !BRANCH.test(base)) {
+    return { status: 1, output: 'FAIL USAGE The --base branch name is not valid.\nPre-PR check: 1 failure(s), 0 warning(s).\n' };
+  }
+  const BASE = `refs/remotes/origin/${base}`;
   const env = { ...process.env, GIT_OPTIONAL_LOCKS: '0', GIT_NO_REPLACE_OBJECTS: '1', GIT_TERMINAL_PROMPT: '0', GIT_PAGER: 'cat' };
   // A supplied clone path, rather than an inherited Git worktree/index override, is authoritative.
   for (const key of Object.keys(env)) if (/^GIT_(?:DIR|WORK_TREE|COMMON_DIR|INDEX_FILE|OBJECT_DIRECTORY|ALTERNATE_OBJECT_DIRECTORIES|CEILING_DIRECTORIES|PREFIX|SHALLOW_FILE)$/i.test(key)) delete env[key];
@@ -215,8 +220,8 @@ function check(cwd = process.cwd()) {
   }
   const scope = new Set();
   function scopeOf(file) {
-    if (!/^(?:extension|tests|docs|scripts)\//.test(file) && !scope.has(file)) {
-      scope.add(file); emit('WARN', 'OUTSIDE_SCOPE', `${display(file)} is outside extension/, tests/, docs/ and scripts/.`);
+    if (!/^(?:extension|tests|docs|scripts|preview)\//.test(file) && !scope.has(file)) {
+      scope.add(file); emit('WARN', 'OUTSIDE_SCOPE', `${display(file)} is outside extension/, tests/, docs/, scripts/ and preview/.`);
     }
   }
   function inspect(file, buffer, previous, getAdded, context) {
@@ -289,10 +294,10 @@ function check(cwd = process.cwd()) {
     if (repository.status !== 0) throw new CheckError('REPOSITORY', 'Run this checker in a local clone working directory, or pass its path.');
     root = string(repository.data).replace(/\r?\n$/, '');
     if (git(['rev-parse', '--verify', '--quiet', `${BASE}^{commit}`], { optional: true }).status !== 0) {
-      throw new CheckError('BASE_REF', 'Missing local origin/main. Verify a trusted local main commit, then use git update-ref refs/remotes/origin/main <verified-local-main-commit>. No network fetch was attempted.');
+      throw new CheckError('BASE_REF', `Missing local origin/${base}. Verify a trusted local ${base} commit, then use git update-ref ${BASE} <verified-local-${base}-commit>. No network fetch was attempted.`);
     }
     if (git(['rev-parse', '--verify', '--quiet', 'HEAD^{commit}'], { optional: true }).status !== 0) throw new CheckError('HEAD', 'The clone needs a valid HEAD commit.');
-    if (git(['merge-base', BASE, 'HEAD'], { optional: true }).status !== 0) throw new CheckError('HISTORY', 'HEAD and local origin/main need readable, shared history; check the base ref and shallow-clone history.');
+    if (git(['merge-base', BASE, 'HEAD'], { optional: true }).status !== 0) throw new CheckError('HISTORY', `HEAD and local origin/${base} need readable, shared history; check the base ref and shallow-clone history.`);
     const commits = string(git(['rev-list', '--reverse', '--topo-order', `${BASE}..HEAD`]).data).trim().split('\n').filter(Boolean);
     for (const oid of commits) {
       const [parents, author, committer, ...body] = string(git(['show', '-s', '--format=%P%x00%ae%x00%ce%x00%B', oid]).data).split('\0');
@@ -348,8 +353,21 @@ function check(cwd = process.cwd()) {
   return { status: failures ? 1 : 0, output: report.join('\n') + '\n' };
 }
 
+function cli(argv) {
+  const usage = { status: 1, output: 'FAIL USAGE Use node pre-pr-check.cjs [local-clone-path] [--base main|preview/4.0]\n' };
+  let clone, base;
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--base' && base === undefined && i + 1 < argv.length) base = argv[++i];
+    else if (arg.startsWith('--base=') && base === undefined) base = arg.slice(7);
+    else if (!arg.startsWith('--') && clone === undefined) clone = arg;
+    else return usage;
+  }
+  return check(clone, base === undefined ? {} : { base });
+}
+
 if (require.main === module) {
-  const result = process.argv.length > 3 ? { status: 1, output: 'FAIL USAGE Use node pre-pr-check.cjs [local-clone-path]\n' } : check(process.argv[2]);
+  const result = cli(process.argv.slice(2));
   process.stdout.write(result.output);
   process.exitCode = result.status;
 }

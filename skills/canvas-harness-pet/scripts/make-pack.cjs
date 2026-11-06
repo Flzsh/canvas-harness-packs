@@ -12,7 +12,7 @@ const KINDS = { 'theme.json': ['chtheme', '.chtheme'], 'pet.json': ['chpet', '.c
 const found = Object.keys(KINDS).filter(f => fs.existsSync(path.join(dir, f)));
 if (found.length !== 1) { console.error(`Put exactly one of ${Object.keys(KINDS).join(', ')} in ${dir} (found ${found.length}).`); process.exit(2); }
 const [format, ext] = KINDS[found[0]];
-const TYPES = { '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.mp4': 'video/mp4', '.webm': 'video/webm', '.woff2': 'font/woff2' };
+const TYPES = { '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.avif': 'image/avif', '.mp4': 'video/mp4', '.webm': 'video/webm', '.woff2': 'font/woff2' };
 let doc; try { doc = JSON.parse(fs.readFileSync(path.join(dir, found[0]), 'utf8')); } catch (e) { console.error(`${found[0]} is not valid JSON: ${e.message}`); process.exit(1); }
 if (doc.format === undefined) doc = { format, version: 1, ...doc };
 if (doc.format !== format) { console.error(`${found[0]} says format "${doc.format}"; it must be "${format}".`); process.exit(1); }

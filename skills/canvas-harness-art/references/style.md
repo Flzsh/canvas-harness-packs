@@ -54,7 +54,7 @@ Look at every object and ask four questions. Anything that fails one is fixed or
 ## 4. The hand
 
 All measurements are in drawing units of a banner 240 units tall. Canvas Harness shows a banner fairly small
-(140 px tall by default), so everything is drawn a size bolder than you might expect.
+(at most 140 px tall at the default size), so everything is drawn a size bolder than you might expect.
 
 ### Ink
 
@@ -183,7 +183,7 @@ figure, ready to copy, with its joints rigged.
   the side is unmistakable. A microscope in profile, a globe on its stand, a telescope on a tripod: draw the view a
   child would draw.
 - **Lettering inside the scene** (a label, a key name, a number on a board): keep it rare and short, at least 16
-  units tall with a 2.4 stroke, drawn as paths. It will not read at Compact size, so the picture must not depend on it.
+  units tall with a 2.4 stroke, drawn as paths. It will not read at the Small banner size, so the picture must not depend on it.
 
 ## 6. The lettered title
 

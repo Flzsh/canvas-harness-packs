@@ -1,25 +1,26 @@
 # Write code that fits
 
-Follow the surrounding file. Public 3.4 uses plain JavaScript, dense functions, short local helpers, semicolons and browser globals usually inside an IIFE; testable modules also export through CommonJS. Keep small changes small. Do not reformat a whole file.
+Follow the surrounding file. Public 3.9.3 uses plain JavaScript, short local helpers, semicolons and browser globals usually inside an IIFE; testable modules also export through CommonJS. Since 3.8 the source is spread so that no line of the extension's own JavaScript holds more than 160 bytes of code: `npm test` (`tests/store-readability.test.cjs`) fails a denser line, and `node scripts/readable-lines.cjs` spreads it, changing whitespace only. Keep small changes small. Do not reformat a whole file.
 
 - Save text as UTF-8 with LF. Preserve existing license and creator notices.
 - Put comments on their own line. Never append a `//` comment to a line of code, even where legacy code does so.
 - Add no npm packages. Use browser APIs and Node builtins. There is no runtime build step, transpiler or new framework; `npm run build` only packages the extension.
+- Write nothing the store readability rules reject: no `eval`, `new Function`, string timers, `document.write`, `javascript:` URLs, invisible or direction-changing characters, or long base64 runs.
 - Render synchronously. Fetch, verify and save outside rendering, then render from a coherent state snapshot. Do not make a renderer `async` or create promises/timers on each render.
 - Use model functions for normalization, filtering, matching and scheduling. Keep event wiring, DOM and lifecycle work in controllers. Escape Canvas text with existing helpers; prefer `textContent` for plain text.
 - Reuse `ReserveSite`, feature gates and account stores. Canvas transport stays GET only. A local planner change, note or draft message is not permission to write to Canvas.
 - Bound caches and source sizes. Cancel requests and disconnect observers/listeners on teardown. Schedule animation only when something visible is moving; keep idle work at zero for added behavior.
 - Use existing classes and plain new names. Explain desired spacing, state, motion and keyboard behavior in the PR so the owner can draw the look.
 
-Three short excerpts from public 3.4.0 (copy the pattern only when it fits):
+Three short excerpts from public 3.9.3 (copy the pattern only when it fits):
 
-`extension/features.js:8` declares a feature and its dependency without a new loader:
+`extension/features.js:10` declares a feature and its dependency without a new loader:
 
 ```js
 feature('planner','Planner & home widgets','Study',['planner-model.js','planner-ui.js','hand-in.js','widgets.js'],[],['dashboard']),
 ```
 
-`extension/app.js:58` keeps a local state helper small and synchronous:
+`extension/app.js:184` keeps a local state helper small and synchronous:
 
 ```js
 function taskState(s,id){return s.tasks[id]||(s.tasks[id]={pinned:false,progress:'not-started',notes:'',estimate:0,plannedDate:'',checklist:[]});}

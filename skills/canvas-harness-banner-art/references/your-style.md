@@ -47,8 +47,9 @@ Mixing is fine if the style sheet says how.
 - **Light and dark pages.** The banner and frame are transparent images over the page. Check both in the preview; a
   pale drawing vanishes on light paper, a dark one on the dark theme. A thin darker outline or a soft backing shape
   fixes most cases.
-- **The banner's left part sits behind the course title** in some layouts: keep it calm (see `slots.md`).
+- **A course banner is a strip of its own** above the course name: nothing is laid over it, but its corners are
+  rounded and a short window makes it smaller (see `slots.md`).
 - **The frame is stretched** over the whole row: keep the middle empty, art on edges and corners, and use
   `vector-effect="non-scaling-stroke"` on its lines.
-- **The icon is 22-40 px**: one clear silhouette, two or three colours, no fine detail.
+- **The icon is 22-46 px**: one clear silhouette, two or three colours, no fine detail.
 - **Size**: busy styles (pixel, painterly) get heavy fast. The limits in `format.md` are hard; aim for banner <= 120 KB.

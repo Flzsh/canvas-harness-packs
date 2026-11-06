@@ -2,11 +2,16 @@
 // Runs the quick upload test packs (quick-upload/vectors) against a reader and compares with the expected results.
 //   node scripts/test-pack.cjs                      the reference reader, scripts/quick-pack.js
 //   node scripts/test-pack.cjs path/to/reader.js    another implementation exporting { parse, matchCourse }
+//   node scripts/test-pack.cjs --vectors folder     test packs kept elsewhere (they ship with the canvas-harness-art skill)
 //   node scripts/test-pack.cjs --write              rewrite the expected results from the reference reader
 // Every vector is read twice, once as written and once with Windows line endings; both must give the same result.
 // Pieces the reader accepts are also run through the artwork validator, so the vectors stay valid artwork.
-const fs = require('fs'), path = require('path'), dir = path.join(__dirname, '..', 'quick-upload', 'vectors');
-const args = process.argv.slice(2), write = args.includes('--write'), impl = args.find(a => !a.startsWith('--'));
+// Without a vectors folder only the writer and reader checks at the end run.
+const fs = require('fs'), path = require('path'), args = process.argv.slice(2), at = args.indexOf('--vectors');
+const dir = path.resolve(at >= 0 ? args.splice(at, 2)[1] || '' : path.join(__dirname, '..', 'quick-upload', 'vectors')), haveVectors = fs.existsSync(path.join(dir, 'matching.json'));
+const write = args.includes('--write'), impl = args.find(a => !a.startsWith('--'));
+if (!haveVectors && (write || at >= 0)) { console.error(`No test packs in ${dir} (quick-upload/vectors of the canvas-harness-art skill).`); process.exit(2); }
+if (!haveVectors) console.log('No test packs here (they ship with the canvas-harness-art skill: --vectors path/to/quick-upload/vectors). Running the writer and reader checks only.');
 const P = require(impl ? path.resolve(impl) : './quick-pack.js');
 const vendored = path.join(__dirname, 'vendor', 'custom-art.js'), inRepo = path.join(__dirname, '..', '..', '..', 'extension', 'custom-art.js');
 const A = require(fs.existsSync(inRepo) ? inRepo : vendored);
@@ -15,7 +20,7 @@ const codes = list => (list || []).map(e => e.code);
 const summary = r => ({ ok: r.ok, version: r.version, name: r.name, errors: codes(r.errors), warnings: codes(r.warnings), skipped: (r.skipped || []).map(s => ({ index: s.index, kind: s.kind, reason: s.reason })),
   parts: (r.parts || []).map(p => ({ index: p.index, slot: p.slot, target: p.target, name: p.name, ...(p.fit ? { fit: p.fit } : {}), ...(p.position ? { position: p.position } : {}), svgBytes: p.svg ? Buffer.byteLength(p.svg) : 0, errors: codes(p.errors), warnings: codes(p.warnings), ...(p.replacedBy ? { replacedBy: p.replacedBy } : {}) })) });
 let failed = 0, ran = 0;
-for (const f of fs.readdirSync(dir).filter(f => /\.(chpack|txt)$/.test(f)).sort()) {
+for (const f of haveVectors ? fs.readdirSync(dir).filter(f => /\.(chpack|txt)$/.test(f)).sort() : []) {
   const text = fs.readFileSync(path.join(dir, f), 'utf8').replace(/\r\n/g, '\n'), exp = path.join(dir, f.replace(/\.[^.]+$/, '.expected.json'));
   const got = summary(P.parse(text)), crlf = summary(P.parse(text.replace(/\n/g, '\r\n')));
   if (write) { fs.writeFileSync(exp, JSON.stringify(got, null, 2) + '\n'); console.log('wrote', path.basename(exp)); continue; }
@@ -27,7 +32,7 @@ for (const f of fs.readdirSync(dir).filter(f => /\.(chpack|txt)$/.test(f)).sort(
   console.log(`${problems.length ? 'FAIL' : 'ok  '} ${f}${problems.map(p => '\n  ' + p).join('')}`);
 }
 if (!write) {
-  const M = JSON.parse(fs.readFileSync(path.join(dir, 'matching.json'), 'utf8'));
+  const M = haveVectors ? JSON.parse(fs.readFileSync(path.join(dir, 'matching.json'), 'utf8')) : { cases: [] };
   for (const c of M.cases) {
     ran++; const r = P.matchCourse(c.target, M.courses), got = r.status === 'matched' ? String(r.course.id) : r.status, ids = (r.candidates || []).map(x => String(x.id));
     const ok = got === c.expect && (c.expect !== 'ambiguous' || JSON.stringify(ids) === JSON.stringify(c.candidates));

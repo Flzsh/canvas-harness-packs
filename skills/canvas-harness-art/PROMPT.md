@@ -8,13 +8,12 @@ Paste everything below into your AI assistant, then add your request at the end,
 > dissection and a kelp forest food web. My course colour is #2E6F73. Light theme. All three pieces.
 
 The assistant should answer with a short note and one code block: a **quick upload pack** holding the banner, the
-icon and the border. In public **CH2.21.0**, open **Customize workspace -> Quick upload**, paste the whole block
-and choose **Review pack** (or choose/drop a `.chpack` or `.txt` file). Check the previews and course matches,
-choose any unmatched course, leave unwanted pieces out, then apply the selected artwork. **Undo last pack** is
-available during the current workspace session if the affected artwork and banner options have not changed.
-For an older installed version without Quick upload, each `<svg>...</svg>` in the block is one piece: paste it
-into that slot's "Paste SVG" box under Customize workspace -> Course artwork. Format version 1 has three slots:
-banner, icon and frame; the lettered title is drawn inside the banner SVG.
+icon and the border. In Canvas Harness 3.9 or a 4.0 preview, open **Make it yours -> Courses -> Quick Upload -> Or
+paste a pack**, paste the whole block and choose **Review pack** (a `.chpack` file goes in through **Make it yours
+-> More -> Add from a file**). Check the previews and each **Apply to** course, untick what you do not want, then
+choose **Apply**. **Undo last pack** takes it back until the page is reloaded, if those pieces and banner options
+have not changed. Then set **Course artwork -> Course title -> In banner**: the name is drawn into the banner.
+Format version 1 has three slots: banner, icon and frame (the border).
 
 Where the text below mentions files (`references/...`, `templates/...`, `scripts/...`), their content is included
 further down in this same document; the script cannot be run from a pasted prompt, so check by hand against
@@ -39,22 +38,25 @@ has a hundred hand-wobbled paths. There is no image model in this workflow.
 |---|---|---|---|
 | Banner (title lettered into its left end) | `banner` | `<course>-banner.svg` | `viewBox="0 0 1680 240"` |
 | Icon | `icon` | `<course>-icon.svg` | `viewBox="0 0 100 100"` |
-| Border (the pack calls it the frame) | `frame` | `<course>-border.svg` | `viewBox="0 0 360 110"` |
+| Border (the Frame slot; `frame` in a pack) | `frame` | `<course>-border.svg` | `viewBox="0 0 360 110"` |
 
 You hand them over as **one quick upload pack**: a single block of text that holds every SVG and says which course
-and which slot each one is for. The user pastes it into **Quick upload** in Canvas Harness and reviews one list; they
+and which slot each one is for. The user pastes it into **Quick Upload** in Canvas Harness and reviews one list; they
 do not upload file by file and they never touch the extension's own files. Pasting is the default; the same text
 saved as a `.chpack` file works the same way. A pack can carry one piece or the art of many courses.
 `references/quick-upload.md` has the exact form.
 
-Quick upload is implemented in the public **CH2.21.0** release. Open **Customize workspace -> Quick upload**,
-paste and choose **Review pack**, or choose/drop a `.chpack` or `.txt` file. Review the previews and course matches,
-choose any unmatched course, leave unwanted pieces out, and apply the selected artwork. **Undo last pack** is
-available during the current workspace session if the affected artwork and banner options have not changed.
-Pack format version 1 supports `banner`, `icon` and `frame`; a lettered title belongs inside the banner SVG.
+**Works with** Canvas Harness 3.9 (Chrome Web Store and GitHub) and the 4.0 previews, with Features on Full (the
+default; Lite leaves course artwork out). Open **Make it yours -> Courses -> Quick Upload -> Or paste a pack**, paste
+and choose **Review pack**; a `.chpack` file goes in through **Make it yours -> More -> Add from a file** and is
+reviewed in the same place. Check the previews and each **Apply to** course, untick what is not wanted, then
+**Apply** (for example **Apply 3 pieces**). **Undo last pack** restores the previous artwork until the page is
+reloaded, if those pieces and banner options have not changed since. Pack format version 1 supports `banner`, `icon`
+and `frame`; the lettered title is inside the banner SVG, so after applying the user sets **Course artwork -> Course
+title -> In banner**.
 
 Plus a short note: what the banner shows, what moves, what each colour of the title stands for, and that the
-banners are drawn for banner size "Large" or "Standard", fit "contain", position "right".
+banners are drawn for banner size "Tall" or "Medium", fit "contain", position "right".
 
 ## Read before drawing
 
@@ -65,7 +67,7 @@ banners are drawn for banner size "Large" or "Standard", fit "contain", position
 | `references/format.md` | Always. What the uploader accepts and refuses. |
 | `references/animation.md` | Before animating. The motion rules and the idioms that work in this format. |
 | `references/checklist.md` | Before handing over. |
-| `references/quick-upload.md` | Before handing over. How to write the pack the user pastes or drops into Quick upload. |
+| `references/quick-upload.md` | Before handing over. How to write the pack the user pastes into Quick Upload or adds as a file. |
 | `templates/*.svg` | Working starting points: a rigged figure in a scene, an icon, a border. |
 | `scripts/hand.mjs` | Optional helpers for a generator script: hand-wobbled lines, loose washes, the figure with its joint rig. |
 | `examples/` | Finished sets made with this skill, with their plans. Look at them for the level expected, not to copy. |
@@ -76,7 +78,7 @@ banners are drawn for banner size "Large" or "Standard", fit "contain", position
 
 Ask only what you cannot decide well yourself, in one message. Proceed on sensible defaults if the user does not answer.
 
-1. The course name exactly as Canvas shows it (it is lettered into the banner, and Quick upload finds the course by it).
+1. The course name exactly as Canvas shows it (it is lettered into the banner, and Quick Upload finds the course by it).
 2. **What the course actually does this term:** units, experiments or projects, tools and instruments, texts,
    anything the class would recognise. This matters most. Generic knowledge of the subject is the fallback.
 3. Their course colour (a hex or a word). Default: clay.
@@ -137,11 +139,14 @@ node scripts/pack.cjs --course "<course name as in Canvas>" <folder with the thr
 Follow `references/quick-upload.md`:
 
 - **Default: paste.** The whole pack in one code block, with one line above it telling the user to copy the block
-  and paste it into Quick upload in Canvas Harness (Customize workspace). If it will not fit in one answer, send
-  several complete packs (banner; then icon and frame), never a pack that is cut off.
-- **Or a file,** if the user asks for one or you can write files: the same text as `<course>.chpack`.
-- For an older installed version without Quick upload, tell them the fallback: paste each SVG from the pack into
-  that slot's "Paste SVG" box under Customize workspace -> Course artwork.
+  and paste it into Quick Upload in Canvas Harness (Make it yours -> Courses -> Quick Upload -> Or paste a pack, then
+  Review pack). If it will not fit in one answer, send several complete packs (banner; then icon and frame), never a
+  pack that is cut off.
+- **Or a file,** if the user asks for one or you can write files: the same text as `<course>.chpack`, added with
+  Make it yours -> More -> Add from a file.
+- If Quick Upload is not there, its feature is off (Lite leaves it out): Full under Features in the popup brings it
+  back. Pasting each SVG into its slot's "Paste SVG" box under Course artwork also works, but a banner added that way
+  fills the heading and is shown without its animation.
 
 With it: the note described above, and anything you were unsure of (a detail of the subject you guessed, a choice
 the user may want changed). Offer one or two specific alternatives, not an open "anything else?".
@@ -234,7 +239,7 @@ Look at every object and ask four questions. Anything that fails one is fixed or
 ### 4. The hand
 
 All measurements are in drawing units of a banner 240 units tall. Canvas Harness shows a banner fairly small
-(140 px tall by default), so everything is drawn a size bolder than you might expect.
+(at most 140 px tall at the default size), so everything is drawn a size bolder than you might expect.
 
 #### Ink
 
@@ -363,7 +368,7 @@ figure, ready to copy, with its joints rigged.
   the side is unmistakable. A microscope in profile, a globe on its stand, a telescope on a tripod: draw the view a
   child would draw.
 - **Lettering inside the scene** (a label, a key name, a number on a board): keep it rare and short, at least 16
-  units tall with a 2.4 stroke, drawn as paths. It will not read at Compact size, so the picture must not depend on it.
+  units tall with a 2.4 stroke, drawn as paths. It will not read at the Small banner size, so the picture must not depend on it.
 
 ### 6. The lettered title
 
@@ -426,12 +431,14 @@ A course gets three files. They are a set: one subject, one palette, one hand.
 |---|---|---|
 | `<course>-banner.svg` | Banner | A long living picture of what the course does, with the course name lettered into its left end. |
 | `<course>-icon.svg` | Icon | One small drawing for the course list. |
-| `<course>-border.svg` | Border | The hand-drawn frame of the course's row in the sidebar. |
+| `<course>-border.svg` | Frame | The hand-drawn frame of the course's row in the sidebar. |
 
 They reach the extension together, as one quick upload pack (`quick-upload.md`); in a pack the three slots are
-called `banner`, `icon` and `frame` (the border). They can also be uploaded one at a time in **Customize workspace ->
-Course artwork** (choose the course, then Upload or Paste SVG for each slot).
-"All courses" has the same three slots for the overview.
+called `banner`, `icon` and `frame` (the border). They can also be uploaded one at a time in **Make it yours ->
+Courses -> Course artwork** (choose the course, then Upload or Paste SVG for each slot), but a banner added that way
+is framed to fill the heading and shown without its animation: send banners in a pack.
+"All courses" has the same three slots for the overview. (Course artwork also has Card art, Page background and Title
+slots; a pack does not fill them.)
 
 ---
 
@@ -439,19 +446,23 @@ Course artwork** (choose the course, then Upload or Paste SVG for each slot).
 
 #### How it is shown
 
-| User's banner size | Height on screen | Width at "contain" | Screen px per unit |
+| Banner size (Make it yours -> Courses -> Banner) | Height on screen | Width at "contain" | Screen px per unit |
 |---|---|---|---|
-| Compact | 80 px | 560 px | 0.33 |
-| Standard (default) | 140 px | 980 px | 0.58 |
-| Large | 220 px | 1,540 px | 0.92 |
+| Small | up to 80 px | 560 px | 0.33 |
+| Medium (default) | up to 140 px | 980 px | 0.58 |
+| Tall | up to 220 px | 1,540 px | 0.92 |
 
-- Default: **fit contain, aligned right**. The whole drawing shows, pushed to the right end of the heading; the page
-  shows to its left. Design for this.
+A short window lowers each size (it stays within 8%, 12% and 20% of the window's height); the widths and px per unit
+are at the full height. The banner is a strip of its own above the course name, with rounded corners.
+
+- Default for a banner from a pack: **fit contain, aligned right**. The whole drawing shows, pushed to the right end
+  of the heading; the page shows to its left. Design for this.
 - Background: **transparent**. The paper is the page. Do not paint a sky or a wall across the whole box.
-- If the user switches to **cover**, the drawing fills the heading's width and loses its top and bottom on wide
-  headings (a 1,500 px heading at 140 px tall shows only the middle 157 of the 240 units). If they want cover, ask
-  their usual window width and banner size and either compose inside the middle band (y 45-195) or use a wider box
-  (`0 0 2400 240`) with the important things away from the ends.
+- With **cover**, the drawing fills the heading's width and loses its top and bottom on wide headings (a 1,500 px
+  heading at 140 px tall shows only the middle 157 of the 240 units). If they want cover, ask their usual window width
+  and banner size and either compose inside the middle band (y 45-195) or use a wider box (`0 0 2400 240`) with the
+  important things away from the ends, and put `fit="cover"` on the banner in the pack. (Fill in Course artwork's
+  framing controls also covers, but from then on the banner is shown still.)
 
 #### Layout
 
@@ -467,8 +478,8 @@ y 214 --------------------------- one floor line -----------------------------
   on the same floor line. The scene's ground continues behind and past it; nothing else sits behind the letters.
 - **Scene** from about x 420 to 1600. Tallest things reach up to about y 24. Keep 12 units clear at the top.
 - **Quiet end:** the last 60-90 units at the right are ground only, so the picture ends calmly at the edge.
-- At Standard size a figure is about 64 px tall and a 2-unit line is about 1.2 px. Nothing that matters should be
-  smaller than 6 units, and the title should read at Compact (80 px tall).
+- At Medium size a figure is about 64 px tall and a 2-unit line is about 1.2 px. Nothing that matters should be
+  smaller than 6 units, and the title should read at Small (80 px tall).
 - One main event runs through the scene (see `animation.md`). 2-5 figures. Up to about 40 moving parts. 12 or 16 s cycle.
 - **Budget the width.** The scene has about 1,180 units. A figure takes about 50, a set piece 150-230. Three to five
   set pieces with their people fill it; if you come up short, make one piece larger and better told, never add filler.
@@ -487,8 +498,9 @@ y 214 --------------------------- one floor line -----------------------------
 
 ### Icon (`viewBox="0 0 100 100"`)
 
-Shown at 40 x 40 px in the bottom-left corner of the course row in the sidebar, and at 22 x 22 px beside the course
-name in assignment cards and headings.
+Shown at 40 x 40 px in the bottom-left corner of the course row in the sidebar, at 22 x 22 px beside the course
+name in assignment cards and headings, and at about 46 px in the course dock (at its default size) if the user keeps
+the courses there.
 
 - **One thing, standing on the page.** A single object from the course, or one small figure doing its most telling
   action. It has a short ground stroke and a small shadow under it so that it stands, not floats. Put that ground at
@@ -506,14 +518,15 @@ name in assignment cards and headings.
 
 ---
 
-### Border (`viewBox="0 0 360 110"`)
+### Border (the Frame slot, `viewBox="0 0 360 110"`)
 
 The frame of the course row in the sidebar (or the course strip). The image is **stretched over the whole row**
 (`preserveAspectRatio="none"`); the icon and the text of the row sit on top of it. A row is typically about
-255 x 87 px in the sidebar and 225 x 84 px in the course strip, and can be as short as about 50 px or as tall as
-about 140 px, so the image may be squeezed or pulled by up to about a third in either direction.
+240 x 87 px in the sidebar (210-260 px wide, growing with the window) and 225 x 84 px in the course strip across the
+top. A row is as tall as its content (the rows share the tallest one's height while they all fit on the screen),
+from about 50 px to about 140 px, so the image may be squeezed or pulled by up to about a third in either direction.
 
-#### What is inside the row (measured in Canvas Harness 2.19 and 2.20; keep these areas clear)
+#### What is inside the row (as Canvas Harness 3.9 lays it out; keep these areas clear)
 
 ```
  0        66                                                     360
@@ -529,7 +542,8 @@ about 140 px, so the image may be squeezed or pulled by up to about a third in e
 - **The icon stands in the bottom-left corner**, 40 x 40 px, on the bottom line of the frame (about x 7-65,
   y 55-109 in a typical row; higher up the box in a short row). Keep the bottom-left corner of the border a plain
   floor line for the icon to stand on.
-- **The text** begins 52 px from the left (x 72 in the box) and starts about 11 px from the top.
+- **The text** begins 51 px from the left (x 72 in the box in the widest rows, a little more in narrower ones) and
+  starts about 11 px from the top.
 - **Where border art can go:**
   - the **top strip**, up to about 9 units deep;
   - the **right strip**, up to about 9 units wide (the count sits in the top-right corner: keep that corner light);
@@ -547,7 +561,7 @@ about 140 px, so the image may be squeezed or pulled by up to about a third in e
   Stroke 1.6-2, with `vector-effect="non-scaling-stroke"` on every stroke so the line keeps its weight when the box
   is stretched.
 - **Its own ink colour.** Not black: a deep colour that belongs to the subject (a deep indigo, a leather brown, a
-  jade, a lacquer red), at least 4:1 against the pale sidebar (`#F3F1EA`). One paint colour beside it for the washes.
+  jade, a lacquer red), at least 4:1 against the pale sidebar (`#F5F4ED`). One paint colour beside it for the washes.
 - **8-12 small drawings on the edges and corners,** taken from the course: things that naturally run along a line or
   hang from it or stand on it (a scale, a ruler, a vine, a row of beads, a rail, a string of flags, a row of books,
   a wave, pegs, ticks). One **corner signature** that is unmistakably this subject.
@@ -580,17 +594,18 @@ Canvas Harness shows uploaded artwork as an **isolated image**: the SVG is valid
    is stripped and what remains is shown. So the drawing with all animation removed must be the complete picture
    (see "The rest pose" in `animation.md`).
 
-Checked against Canvas Harness 2.20.0 (`extension/custom-art.js`, unchanged since 2.18.1). `scripts/check.cjs` runs that same validator.
+Checked against Canvas Harness 3.9.3 and 4.0 Preview 6 (`extension/custom-art.js`, the same file in both).
+`scripts/check.cjs` runs that same validator.
 
 ### The three slots
 
 | Slot | Recommended `viewBox` | How it is shown | Notes |
 |---|---|---|---|
-| **Banner** (with the lettered title inside it) | `0 0 1680 240` | A strip across the course heading, 80, 140 (default) or 220 px tall depending on the user's banner size. Default fit is **contain, aligned right**; the user can switch to **cover** and to left/centre. | Transparent background. See `slots.md` for the safe areas. |
-| **Icon** | `0 0 100 100` | 40 x 40 px in the bottom-left corner of the course row, 22 x 22 px beside the course name elsewhere. | Must read at 22 px. |
-| **Border** | `0 0 360 110` | Stretched over the whole course row (`preserveAspectRatio="none"`); the row's icon and text sit in the middle. A row is typically about 255 x 87 px. | Hollow and transparent in the middle: art only on the edges and corners. |
+| **Banner** (with the lettered title inside it) | `0 0 1680 240` | A strip of its own across the top of the course heading, up to 80, 140 (default) or 220 px tall for the banner sizes Small, Medium and Tall. From a pack the fit is **contain, aligned right** unless the pack sets `fit` and `position`. A banner uploaded or pasted on its own is framed to fill and shown still. | Transparent background. See `slots.md` for the safe areas. |
+| **Icon** | `0 0 100 100` | 40 x 40 px in the bottom-left corner of the course row, 22 x 22 px beside the course name elsewhere, about 46 px in the course dock. | Must read at 22 px. |
+| **Border** (the Frame slot) | `0 0 360 110` | Stretched over the whole course row (`preserveAspectRatio="none"`); the row's icon and text sit on top of it. A row is typically about 240 x 87 px. | Hollow and transparent in the middle: art only on the edges and corners. |
 
-"All courses" (the overview) has its own banner, icon and border slots; treat it as one more course.
+"All courses" (the overview) has its own banner, icon and frame slots; treat it as one more course.
 
 Several pieces travel to the extension as one quick upload pack: plain text with a `<?ch-art ...?>` line before each
 SVG (see `quick-upload.md`). Everything in this file applies to each SVG inside a pack exactly as it does to a file
@@ -598,12 +613,14 @@ uploaded on its own; a pack does not relax any rule.
 
 ### Hard limits
 
-- 256 KiB per file (raw and after normalising); 2 MiB for all of a user's artwork together. Aim far lower:
+- 256 KiB per file (raw and after normalising); 2 MiB for all of a user's SVG artwork together. Aim far lower:
   banner <= 70 KB, icon <= 6 KB, border <= 14 KB.
 - At most 4,096 elements, nesting at most 64 deep, at most 60 attributes on one element.
 - One `d` attribute holds at most 8,192 numbers and letters. Split very long paths.
-- All CSS together at most 64 KiB; at most 16 `<style>` elements.
-- XML 1.0, UTF-8, one `<svg>` root with `xmlns="http://www.w3.org/2000/svg"` and a `viewBox`.
+- Each `<style>` (and each `style` attribute) at most 64 KiB of CSS; at most 16 `<style>` elements.
+- Filters: `stdDeviation` at most 64, `numOctaves` at most 5, `baseFrequency` from 0 to 1.
+- XML 1.0, UTF-8, one `<svg>` root. Give it `xmlns="http://www.w3.org/2000/svg"` (a missing one is added) and a
+  `viewBox` (without one the picture cannot scale to its slot).
 
 ### Allowed elements
 
@@ -623,9 +640,11 @@ Avoid `text` (no fonts reach the image; the lettering is drawn), avoid filters (
 
 On every drawable element: `id class style transform opacity fill fill-rule fill-opacity stroke stroke-opacity
 stroke-width stroke-linecap stroke-linejoin stroke-miterlimit stroke-dasharray stroke-dashoffset color visibility
-display filter clip-path clip-rule mask vector-effect paint-order shape-rendering overflow pointer-events`
-plus the element's own geometry (`d`, `pathLength`, `x`, `y`, `width`, `height`, `rx`, `ry`, `cx`, `cy`, `r`,
-`x1`..`y2`, `points`).
+display filter clip-path clip-rule mask vector-effect paint-order shape-rendering color-interpolation
+color-interpolation-filters overflow pointer-events` plus the element's own geometry (`d`, `pathLength`, `x`, `y`,
+`width`, `height`, `rx`, `ry`, `cx`, `cy`, `r`, `x1`..`y2`, `points`) and the usual attributes of gradients, stops,
+patterns, filters and text (`offset`, `stdDeviation`, `font-size`...). Animation elements take only an `id` and their
+own timing and value attributes (no `class` or `style`).
 
 **Any other attribute is refused**, including every `data-*` attribute, `aria-*`, `role`, `tabindex`, `xml:id` and
 event handlers (`onclick`...). Class names are letters, digits, `_` and `-`, starting with a letter or `_`.
@@ -655,17 +674,17 @@ Ids start with a letter or `_`. `href` may only be a local `#id`.
   path, drawing-on, and switching between drawn poses (see `animation.md`).
 - `animateTransform` (types `translate scale rotate skewX skewY`), `animateMotion` (with `path`, `rotate`,
   `keyPoints`), `set`.
-- Clock values are plain times only: `begin="2.5s"`, `dur="12s"`, `repeatCount="indefinite"`. Event and sync-base
-  values (`begin="click"`, `begin="a.end"`) are refused.
+- Clock values are plain times with a unit: `begin="2.5s"`, `dur="12s"` (a bare `dur="12"` is refused),
+  `repeatCount="indefinite"`. Event and sync-base values (`begin="click"`, `begin="a.end"`) are refused.
 - `calcMode` `linear | discrete | paced | spline`; `fill` `freeze | remove`.
 
 ### What gets a file refused most often
 
-| Symptom in the upload dialog | Cause | Fix |
+| Message (after "SVG artwork:") | Cause | Fix |
 |---|---|---|
 | "Unsupported SVG attribute data-..." | exporter or rig metadata | delete every `data-*`, `aria-*`, `role` |
 | "Unsupported or unsafe SVG element <image>/<marker>/<foreignObject>" | embedded bitmap, arrowhead markers, HTML text | redraw as paths |
-| "SVG namespace prefixes are unsupported" | Inkscape/Illustrator export | export "plain SVG", strip `inkscape:`/`sodipodi:` |
+| "SVG XML namespaces and rebased resources are unsupported: xmlns:inkscape" | Inkscape/Illustrator export | export "plain SVG", strip `inkscape:`/`sodipodi:` |
 | "Unsafe CSS function" | `var(--x)` | write the value out |
 | "Unsafe SVG animation attributeName d" | path morph | use transforms or pose switching |
 | "Unsupported SVG animation clock" | `begin="x.end"` | use absolute times and one shared cycle length |
@@ -1022,32 +1041,38 @@ Imagine every animation removed (this is what reduced-motion users see).
 
 Canvas Harness users do not edit the extension's files, and uploading one SVG at a time into the right course and the
 right slot is slow and easy to get wrong. So the art is handed over as **one pack**: plain text that carries every
-SVG together with a line saying where it goes. The user gives it to **Quick upload** in Canvas Harness once.
+SVG together with a line saying where it goes. The user gives it to **Quick Upload** in Canvas Harness once.
 
-This workflow is implemented in the public **CH2.21.0** release, under **Customize workspace -> Quick upload**.
-Pack format version 1 supports `banner`, `icon` and `frame` (or `border`); it has no separate `title` slot. Draw the
-lettered title inside the banner SVG.
+This workflow is in Canvas Harness 3.9 and the 4.0 previews, under **Make it yours -> Courses -> Quick Upload**
+(part of Full, the default set of features; Lite leaves course artwork out). Pack format version 1 supports
+`banner`, `icon` and `frame` (or `border`); it has no separate `title` slot. Draw the lettered title inside the
+banner SVG.
 
 There are two ways to deliver the same pack. They do exactly the same thing.
 
 | Way | When | What the user does |
 |---|---|---|
-| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick upload. |
-| **File** | The user asks for a file, or you can write files and the pack is long. | Drops `something.chpack` on Quick upload. |
+| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick Upload. |
+| **File** | The user asks for a file, or you can write files and the pack is long. | Adds `something.chpack` with **Add from a file** (Make it yours -> More), then reviews it in Quick Upload. |
 
 A pack changes only what it names. One banner, or the banner, icon and frame of seven courses: both are one pack.
 
-### Reviewing and applying in CH2.21.0
+### Reviewing and applying
 
-1. Open **Customize workspace -> Quick upload**. Paste the complete pack and choose **Review pack**, or drop a
-   `.chpack` or `.txt` file on the upload area (or use **Choose pack**).
-2. Review the previews, warnings, slots, course matches and existing artwork each piece will replace. When a target
-   is unmatched or ambiguous, choose its course. Leave unwanted pieces or whole targets out of the selection.
-3. Apply the selected artwork after checking the review. Invalid, excluded and unresolved pieces are left out;
-   accepted pieces are saved together, with a report of what was applied. A storage or artwork-budget failure
-   leaves the artwork unchanged.
-4. **Undo last pack** restores the most recent successful pack during the current workspace session. Undo refuses
-   to overwrite affected artwork or banner options that have changed since that pack; unrelated settings survive.
+1. Open **Make it yours -> Courses -> Quick Upload**, expand **Or paste a pack**, paste the complete pack and choose
+   **Review pack**. A `.chpack` file goes in through **Make it yours -> More -> Add from a file** instead (choose it,
+   or drop it on that section); its review then waits under Courses -> Quick Upload.
+2. Review the previews, warnings, slots, course matches and existing artwork each piece will replace ("Replaces
+   current artwork"). Each course target has an **Apply to** list: when it is unmatched or ambiguous, choose its
+   course. Untick unwanted pieces or whole targets.
+3. Choose **Apply** (it counts the pieces: **Apply 3 pieces**). Invalid, excluded and unresolved pieces are left out;
+   accepted pieces are saved together ("Artwork applied"), with a list of what was not applied. A storage or
+   artwork-budget failure leaves the artwork unchanged.
+4. **Undo last pack** restores the most recent successful pack until the page is reloaded. Undo refuses to overwrite
+   affected artwork or banner options that have changed since that pack; unrelated settings survive.
+5. Then, under **Course artwork** below Quick Upload, choose the course and set **Course title** to **In banner**: the
+   name is already lettered into the banner. Later, **Use default** on a slot removes one piece and **Reset this
+   course's artwork** removes them all.
 
 ### Writing a pack
 
@@ -1077,7 +1102,7 @@ A pack changes only what it names. One banner, or the banner, icon and frame of 
 |---|---|
 | `slot="banner"` | The banner (with the lettered course name inside it). |
 | `slot="icon"` | The course icon. |
-| `slot="frame"` | The sidebar border. (This is the file the rest of this skill calls the border.) |
+| `slot="frame"` | The sidebar border, the slot Canvas Harness calls Frame. (This is the file the rest of this skill calls the border.) |
 | `course="Marine Biology"` | Which course. Use the name **as the user sees it in Canvas**; ask if you are not sure. |
 | `course="AP Biology\|AP Bio"` | Several names the course might go by, separated by `\|`. |
 | `course-id="48213"` | Only if the user gave you the number from the course's address (`/courses/48213`). It can sit beside `course`. |
@@ -1113,8 +1138,9 @@ something different for one course: the named course wins.
 
 - Put the whole pack in **one code block**, with nothing else inside the block. Outside a code block a chat
   application eats the angle brackets and the pack is lost.
-- Above the block, one line: *"Copy this whole block and paste it into Quick upload in Canvas Harness (Customize
-  workspace). It will show you what it is about to change before it changes anything."*
+- Above the block, one line: *"Copy this whole block. In Canvas Harness open Make it yours -> Courses -> Quick Upload
+  -> Or paste a pack, paste it and choose Review pack. It shows you what it is about to change before it changes
+  anything."*
 - **A pack must be complete in one message.** If the art is too long for one answer, send several packs, each
   whole (its own first line, its own end line), for example one for the banner and one for the icon and frame, or
   one per course. The user pastes each; they add up. Never split one SVG across messages, and never send a pack
@@ -1136,13 +1162,15 @@ The script takes the slot from each file's name (`...-banner.svg`, `...-icon.svg
 `...-frame.svg`), validates every SVG first, and refuses to pack one the uploader would refuse. `--print` also
 writes the pack text to the terminal so you can paste it into your answer.
 
-### Manual fallback for older installed versions
+### If Quick Upload is not there
 
-If the user's installed version predates Quick upload, the same pack still works by hand: each `<svg>...</svg>` in
-it is one piece. In **Customize workspace ->
-Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG, paste just
-that SVG, and press **Apply SVG**. (With the script: `node scripts/pack.cjs --unpack file.chpack` writes the pieces
-back out as separate `.svg` files to upload.)
+Quick Upload is part of Full, the default set of features; Lite leaves course artwork out. Ask the user to choose
+Full under Features in the Canvas Harness popup (in Custom: switch on Course artwork and the artwork packs). If they
+keep the packs off, the same pack still works by hand: each `<svg>...</svg>` in it is one piece. In **Make it yours ->
+Courses -> Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG,
+paste just that SVG, and press **Apply SVG**. An icon or border added this way is the same as from a pack; a banner
+is framed to fill the heading and shown without its animation. (With the script: `node scripts/pack.cjs --unpack
+file.chpack` writes the pieces back out as separate `.svg` files to upload.)
 
 ### Before you send a pack
 

@@ -133,8 +133,9 @@ onto the main sequence. The orrery's planet never stops (8 s, quick near the Sun
 constellation lines are retraced letter by letter.
 **Title colours.** Deep blue = the night sky of the chart (your course colour). Paper lines = the chart's constellation
 lines. Gold = stars and light, the same gold as the beam and the plotted star. The clay dot on the dashed ecliptic = a planet.
-**Upload.** Customize workspace -> Course artwork -> choose Astronomy -> Upload or Paste SVG for banner, icon and border.
-Banner size Large or Standard, fit contain, position right.
+**Upload.** Paste `astronomy.chpack` into Make it yours -> Courses -> Quick Upload -> Or paste a pack -> Review pack ->
+Apply 3 pieces; then Course artwork -> Astronomy -> Course title -> In banner. Banner size Tall or Medium, fit contain,
+position right.
 **Unsure of / may want changed.**
 - The spectrum is a Sun-like (G) star's: Ca H, G band, H-beta, Mg b, Na D, H-alpha, placed by the grating equation for
   800 lines/mm. If your lab uses a different star or lamp, say which and the lines move.

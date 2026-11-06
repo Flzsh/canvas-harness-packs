@@ -5,7 +5,8 @@ description: Make course artwork for Canvas Harness in any style the student wan
 
 # Canvas Harness course art, in your own style
 
-**Works with:** every Canvas Harness that has Quick upload (in the appearance settings), so it works today.
+**Works with:** Canvas Harness 3.9 (Chrome Web Store and GitHub) and the 4.0 previews, with Features on Full (the
+default). Lite leaves course artwork out; in Custom, keep Course artwork and the artwork packs switched on.
 
 Canvas Harness is a browser extension that replaces the Canvas LMS dashboard. Each course can carry its own artwork:
 a **banner** across the course heading, and a **frame** and an **icon** for the course's row in the sidebar. This skill
@@ -24,8 +25,9 @@ hundreds of shapes. There is no image model in this workflow.
 | Icon | `icon` | `<course>-icon.svg` | `viewBox="0 0 100 100"` |
 
 You hand them over as **one quick upload pack**: one block of text holding every SVG and saying which course and slot
-each is for. The student pastes it into **Quick upload** in Canvas Harness (or saves it as a `.chpack` file and drops
-it there) and reviews one list. `references/quick-upload.md` has the exact form; `scripts/pack.cjs` writes it.
+each is for. The student pastes it into **Quick Upload** in Canvas Harness (or saves it as a `.chpack` file and adds
+it with **Add from a file**) and reviews one list. `references/quick-upload.md` has the exact form; `scripts/pack.cjs`
+writes it.
 
 ## Read before drawing
 
@@ -42,7 +44,7 @@ it there) and reviews one list. `references/quick-upload.md` has the exact form;
 
 ### 1. Ask (one short message)
 Ask only what you cannot decide yourself; go ahead on sensible defaults if the student does not answer.
-1. The course name exactly as Canvas shows it (Quick upload finds the course by it).
+1. The course name exactly as Canvas shows it (Quick Upload finds the course by it).
 2. **Their style**: a few words, an artist or a game or a film whose look they like, a picture they made, colours they
    love or hate. This leads everything. If they have no idea, offer three short directions that fit the course and let
    them pick.
@@ -68,8 +70,10 @@ with the student's style sheet beside it.
 ### 5. Pack and hand over
 `node scripts/pack.cjs --course "Exact Course Name" <folder> --out <course>.chpack --print` writes the pack (`--overview`
 for the All courses page, `--every-course` for a frame used on every course). Give the student the pack text or file and
-two lines: "Canvas Harness -> Make it yours -> Quick upload -> paste (or drop the file) -> Add". Removing it later is in
-the same place.
+two lines: "Canvas Harness -> Make it yours -> Courses -> Quick Upload -> Or paste a pack -> paste -> Review pack ->
+Apply (a file goes in through More -> Add from a file)" and "Undo last pack takes it back; later, Course artwork just
+below has Use default on each piece". If the course name is lettered into the banner, add "Course artwork -> Course
+title -> In banner", so Canvas Harness does not draw the name a second time.
 
 ## Rules that do not bend
 - Everything in `references/format.md`: one self-contained SVG per piece, no scripts, no `<image>`, no outside

@@ -10,17 +10,18 @@ Canvas Harness shows uploaded artwork as an **isolated image**: the SVG is valid
    is stripped and what remains is shown. So the drawing with all animation removed must be the complete picture
    (see "The rest pose" in `animation.md`).
 
-Checked against Canvas Harness 2.20.0 (`extension/custom-art.js`, unchanged since 2.18.1). `scripts/check.cjs` runs that same validator.
+Checked against Canvas Harness 3.9.3 and 4.0 Preview 6 (`extension/custom-art.js`, the same file in both).
+`scripts/check.cjs` runs that same validator.
 
 ## The three slots
 
 | Slot | Recommended `viewBox` | How it is shown | Notes |
 |---|---|---|---|
-| **Banner** (with the lettered title inside it) | `0 0 1680 240` | A strip across the course heading, 80, 140 (default) or 220 px tall depending on the user's banner size. Default fit is **contain, aligned right**; the user can switch to **cover** and to left/centre. | Transparent background. See `slots.md` for the safe areas. |
-| **Icon** | `0 0 100 100` | 40 x 40 px in the bottom-left corner of the course row, 22 x 22 px beside the course name elsewhere. | Must read at 22 px. |
-| **Border** | `0 0 360 110` | Stretched over the whole course row (`preserveAspectRatio="none"`); the row's icon and text sit in the middle. A row is typically about 255 x 87 px. | Hollow and transparent in the middle: art only on the edges and corners. |
+| **Banner** (with the lettered title inside it) | `0 0 1680 240` | A strip of its own across the top of the course heading, up to 80, 140 (default) or 220 px tall for the banner sizes Small, Medium and Tall. From a pack the fit is **contain, aligned right** unless the pack sets `fit` and `position`. A banner uploaded or pasted on its own is framed to fill and shown still. | Transparent background. See `slots.md` for the safe areas. |
+| **Icon** | `0 0 100 100` | 40 x 40 px in the bottom-left corner of the course row, 22 x 22 px beside the course name elsewhere, about 46 px in the course dock. | Must read at 22 px. |
+| **Frame** (stored as the border) | `0 0 360 110` | Stretched over the whole course row (`preserveAspectRatio="none"`); the row's icon and text sit on top of it. A row is typically about 240 x 87 px. | Hollow and transparent in the middle: art only on the edges and corners. |
 
-"All courses" (the overview) has its own banner, icon and border slots; treat it as one more course.
+"All courses" (the overview) has its own banner, icon and frame slots; treat it as one more course.
 
 Several pieces travel to the extension as one quick upload pack: plain text with a `<?ch-art ...?>` line before each
 SVG (see `quick-upload.md`). Everything in this file applies to each SVG inside a pack exactly as it does to a file
@@ -28,12 +29,14 @@ uploaded on its own; a pack does not relax any rule.
 
 ## Hard limits
 
-- 256 KiB per file (raw and after normalising); 2 MiB for all of a user's artwork together. Aim far lower:
-  banner <= 70 KB, icon <= 6 KB, border <= 14 KB.
+- 256 KiB per file (raw and after normalising); 2 MiB for all of a user's SVG artwork together. Aim far lower:
+  banner <= 70 KB, icon <= 6 KB, frame <= 14 KB.
 - At most 4,096 elements, nesting at most 64 deep, at most 60 attributes on one element.
 - One `d` attribute holds at most 8,192 numbers and letters. Split very long paths.
-- All CSS together at most 64 KiB; at most 16 `<style>` elements.
-- XML 1.0, UTF-8, one `<svg>` root with `xmlns="http://www.w3.org/2000/svg"` and a `viewBox`.
+- Each `<style>` (and each `style` attribute) at most 64 KiB of CSS; at most 16 `<style>` elements.
+- Filters: `stdDeviation` at most 64, `numOctaves` at most 5, `baseFrequency` from 0 to 1.
+- XML 1.0, UTF-8, one `<svg>` root. Give it `xmlns="http://www.w3.org/2000/svg"` (a missing one is added) and a
+  `viewBox` (without one the picture cannot scale to its slot).
 
 ## Allowed elements
 
@@ -54,9 +57,11 @@ and filters cost a lot when animated.
 
 On every drawable element: `id class style transform opacity fill fill-rule fill-opacity stroke stroke-opacity
 stroke-width stroke-linecap stroke-linejoin stroke-miterlimit stroke-dasharray stroke-dashoffset color visibility
-display filter clip-path clip-rule mask vector-effect paint-order shape-rendering overflow pointer-events`
-plus the element's own geometry (`d`, `pathLength`, `x`, `y`, `width`, `height`, `rx`, `ry`, `cx`, `cy`, `r`,
-`x1`..`y2`, `points`).
+display filter clip-path clip-rule mask vector-effect paint-order shape-rendering color-interpolation
+color-interpolation-filters overflow pointer-events` plus the element's own geometry (`d`, `pathLength`, `x`, `y`,
+`width`, `height`, `rx`, `ry`, `cx`, `cy`, `r`, `x1`..`y2`, `points`) and the usual attributes of gradients, stops,
+patterns, filters and text (`offset`, `stdDeviation`, `font-size`...). Animation elements take only an `id` and their
+own timing and value attributes (no `class` or `style`).
 
 **Any other attribute is refused**, including every `data-*` attribute, `aria-*`, `role`, `tabindex`, `xml:id` and
 event handlers (`onclick`...). Class names are letters, digits, `_` and `-`, starting with a letter or `_`.
@@ -86,17 +91,17 @@ Ids start with a letter or `_`. `href` may only be a local `#id`.
   path, drawing-on, and switching between drawn poses (see `animation.md`).
 - `animateTransform` (types `translate scale rotate skewX skewY`), `animateMotion` (with `path`, `rotate`,
   `keyPoints`), `set`.
-- Clock values are plain times only: `begin="2.5s"`, `dur="12s"`, `repeatCount="indefinite"`. Event and sync-base
-  values (`begin="click"`, `begin="a.end"`) are refused.
+- Clock values are plain times with a unit: `begin="2.5s"`, `dur="12s"` (a bare `dur="12"` is refused),
+  `repeatCount="indefinite"`. Event and sync-base values (`begin="click"`, `begin="a.end"`) are refused.
 - `calcMode` `linear | discrete | paced | spline`; `fill` `freeze | remove`.
 
 ## What gets a file refused most often
 
-| Symptom in the upload dialog | Cause | Fix |
+| Message (after "SVG artwork:") | Cause | Fix |
 |---|---|---|
 | "Unsupported SVG attribute data-..." | exporter or rig metadata | delete every `data-*`, `aria-*`, `role` |
 | "Unsupported or unsafe SVG element <image>/<marker>/<foreignObject>" | embedded bitmap, arrowhead markers, HTML text | redraw as paths |
-| "SVG namespace prefixes are unsupported" | Inkscape/Illustrator export | export "plain SVG", strip `inkscape:`/`sodipodi:` |
+| "SVG XML namespaces and rebased resources are unsupported: xmlns:inkscape" | Inkscape/Illustrator export | export "plain SVG", strip `inkscape:`/`sodipodi:` |
 | "Unsafe CSS function" | `var(--x)` | write the value out |
 | "Unsafe SVG animation attributeName d" | path morph | use transforms or pose switching |
 | "Unsupported SVG animation clock" | `begin="x.end"` | use absolute times and one shared cycle length |

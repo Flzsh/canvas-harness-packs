@@ -2,32 +2,38 @@
 
 Canvas Harness users do not edit the extension's files, and uploading one SVG at a time into the right course and the
 right slot is slow and easy to get wrong. So the art is handed over as **one pack**: plain text that carries every
-SVG together with a line saying where it goes. The user gives it to **Quick upload** in Canvas Harness once.
+SVG together with a line saying where it goes. The user gives it to **Quick Upload** in Canvas Harness once.
 
-This workflow is implemented in the public **CH2.21.0** release, under **Customize workspace -> Quick upload**.
-Pack format version 1 supports `banner`, `icon` and `frame` (or `border`); it has no separate `title` slot. Draw the
-lettered title inside the banner SVG.
+This workflow is in Canvas Harness 3.9 and the 4.0 previews, under **Make it yours -> Courses -> Quick Upload**
+(part of Full, the default set of features; Lite leaves course artwork out). Pack format version 1 supports
+`banner`, `icon` and `frame` (or `border`); it has no separate `title` slot. Draw the lettered title inside the
+banner SVG.
 
 There are two ways to deliver the same pack. They do exactly the same thing.
 
 | Way | When | What the user does |
 |---|---|---|
-| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick upload. |
-| **File** | The user asks for a file, or you can write files and the pack is long. | Drops `something.chpack` on Quick upload. |
+| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick Upload. |
+| **File** | The user asks for a file, or you can write files and the pack is long. | Adds `something.chpack` with **Add from a file** (Make it yours -> More), then reviews it in Quick Upload. |
 
 A pack changes only what it names. One banner, or the banner, icon and frame of seven courses: both are one pack.
 
-## Reviewing and applying in CH2.21.0
+## Reviewing and applying
 
-1. Open **Customize workspace -> Quick upload**. Paste the complete pack and choose **Review pack**, or drop a
-   `.chpack` or `.txt` file on the upload area (or use **Choose pack**).
-2. Review the previews, warnings, slots, course matches and existing artwork each piece will replace. When a target
-   is unmatched or ambiguous, choose its course. Leave unwanted pieces or whole targets out of the selection.
-3. Apply the selected artwork after checking the review. Invalid, excluded and unresolved pieces are left out;
-   accepted pieces are saved together, with a report of what was applied. A storage or artwork-budget failure
-   leaves the artwork unchanged.
-4. **Undo last pack** restores the most recent successful pack during the current workspace session. Undo refuses
-   to overwrite affected artwork or banner options that have changed since that pack; unrelated settings survive.
+1. Open **Make it yours -> Courses -> Quick Upload**, expand **Or paste a pack**, paste the complete pack and choose
+   **Review pack**. A `.chpack` file goes in through **Make it yours -> More -> Add from a file** instead (choose it,
+   or drop it on that section); its review then waits under Courses -> Quick Upload.
+2. Review the previews, warnings, slots, course matches and existing artwork each piece will replace ("Replaces
+   current artwork"). Each course target has an **Apply to** list: when it is unmatched or ambiguous, choose its
+   course. Untick unwanted pieces or whole targets.
+3. Choose **Apply** (it counts the pieces: **Apply 3 pieces**). Invalid, excluded and unresolved pieces are left out;
+   accepted pieces are saved together ("Artwork applied"), with a list of what was not applied. A storage or
+   artwork-budget failure leaves the artwork unchanged.
+4. **Undo last pack** restores the most recent successful pack until the page is reloaded. Undo refuses to overwrite
+   affected artwork or banner options that have changed since that pack; unrelated settings survive.
+5. Then, under **Course artwork** below Quick Upload, choose the course and set **Course title** to **In banner**: the
+   name is already lettered into the banner. Later, **Use default** on a slot removes one piece and **Reset this
+   course's artwork** removes them all.
 
 ## Writing a pack
 
@@ -57,7 +63,7 @@ A pack changes only what it names. One banner, or the banner, icon and frame of 
 |---|---|
 | `slot="banner"` | The banner (with the lettered course name inside it). |
 | `slot="icon"` | The course icon. |
-| `slot="frame"` | The sidebar border. (This is the file the rest of this skill calls the border.) |
+| `slot="frame"` | The sidebar border, the slot Canvas Harness calls Frame. (This is the file the rest of this skill calls the border.) |
 | `course="Marine Biology"` | Which course. Use the name **as the user sees it in Canvas**; ask if you are not sure. |
 | `course="AP Biology\|AP Bio"` | Several names the course might go by, separated by `\|`. |
 | `course-id="48213"` | Only if the user gave you the number from the course's address (`/courses/48213`). It can sit beside `course`. |
@@ -93,8 +99,9 @@ something different for one course: the named course wins.
 
 - Put the whole pack in **one code block**, with nothing else inside the block. Outside a code block a chat
   application eats the angle brackets and the pack is lost.
-- Above the block, one line: *"Copy this whole block and paste it into Quick upload in Canvas Harness (Customize
-  workspace). It will show you what it is about to change before it changes anything."*
+- Above the block, one line: *"Copy this whole block. In Canvas Harness open Make it yours -> Courses -> Quick Upload
+  -> Or paste a pack, paste it and choose Review pack. It shows you what it is about to change before it changes
+  anything."*
 - **A pack must be complete in one message.** If the art is too long for one answer, send several packs, each
   whole (its own first line, its own end line), for example one for the banner and one for the icon and frame, or
   one per course. The user pastes each; they add up. Never split one SVG across messages, and never send a pack
@@ -116,13 +123,15 @@ The script takes the slot from each file's name (`...-banner.svg`, `...-icon.svg
 `...-frame.svg`), validates every SVG first, and refuses to pack one the uploader would refuse. `--print` also
 writes the pack text to the terminal so you can paste it into your answer.
 
-## Manual fallback for older installed versions
+## If Quick Upload is not there
 
-If the user's installed version predates Quick upload, the same pack still works by hand: each `<svg>...</svg>` in
-it is one piece. In **Customize workspace ->
-Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG, paste just
-that SVG, and press **Apply SVG**. (With the script: `node scripts/pack.cjs --unpack file.chpack` writes the pieces
-back out as separate `.svg` files to upload.)
+Quick Upload is part of Full, the default set of features; Lite leaves course artwork out. Ask the user to choose
+Full under Features in the Canvas Harness popup (in Custom: switch on Course artwork and the artwork packs). If they
+keep the packs off, the same pack still works by hand: each `<svg>...</svg>` in it is one piece. In **Make it yours ->
+Courses -> Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG,
+paste just that SVG, and press **Apply SVG**. An icon or border added this way is the same as from a pack; a banner
+is framed to fill the heading and shown without its animation. (With the script: `node scripts/pack.cjs --unpack
+file.chpack` writes the pieces back out as separate `.svg` files to upload.)
 
 ## Before you send a pack
 

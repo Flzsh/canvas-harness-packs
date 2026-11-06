@@ -6,12 +6,14 @@ A course gets three files. They are a set: one subject, one palette, one hand.
 |---|---|---|
 | `<course>-banner.svg` | Banner | A long living picture of what the course does, with the course name lettered into its left end. |
 | `<course>-icon.svg` | Icon | One small drawing for the course list. |
-| `<course>-border.svg` | Border | The hand-drawn frame of the course's row in the sidebar. |
+| `<course>-border.svg` | Frame | The hand-drawn frame of the course's row in the sidebar. |
 
 They reach the extension together, as one quick upload pack (`quick-upload.md`); in a pack the three slots are
-called `banner`, `icon` and `frame` (the border). They can also be uploaded one at a time in **Customize workspace ->
-Course artwork** (choose the course, then Upload or Paste SVG for each slot).
-"All courses" has the same three slots for the overview.
+called `banner`, `icon` and `frame` (the border). They can also be uploaded one at a time in **Make it yours ->
+Courses -> Course artwork** (choose the course, then Upload or Paste SVG for each slot), but a banner added that way
+is framed to fill the heading and shown without its animation: send banners in a pack.
+"All courses" has the same three slots for the overview. (Course artwork also has Card art, Page background and Title
+slots; a pack does not fill them.)
 
 ---
 
@@ -19,19 +21,23 @@ Course artwork** (choose the course, then Upload or Paste SVG for each slot).
 
 ### How it is shown
 
-| User's banner size | Height on screen | Width at "contain" | Screen px per unit |
+| Banner size (Make it yours -> Courses -> Banner) | Height on screen | Width at "contain" | Screen px per unit |
 |---|---|---|---|
-| Compact | 80 px | 560 px | 0.33 |
-| Standard (default) | 140 px | 980 px | 0.58 |
-| Large | 220 px | 1,540 px | 0.92 |
+| Small | up to 80 px | 560 px | 0.33 |
+| Medium (default) | up to 140 px | 980 px | 0.58 |
+| Tall | up to 220 px | 1,540 px | 0.92 |
 
-- Default: **fit contain, aligned right**. The whole drawing shows, pushed to the right end of the heading; the page
-  shows to its left. Design for this.
+A short window lowers each size (it stays within 8%, 12% and 20% of the window's height); the widths and px per unit
+are at the full height. The banner is a strip of its own above the course name, with rounded corners.
+
+- Default for a banner from a pack: **fit contain, aligned right**. The whole drawing shows, pushed to the right end
+  of the heading; the page shows to its left. Design for this.
 - Background: **transparent**. The paper is the page. Do not paint a sky or a wall across the whole box.
-- If the user switches to **cover**, the drawing fills the heading's width and loses its top and bottom on wide
-  headings (a 1,500 px heading at 140 px tall shows only the middle 157 of the 240 units). If they want cover, ask
-  their usual window width and banner size and either compose inside the middle band (y 45-195) or use a wider box
-  (`0 0 2400 240`) with the important things away from the ends.
+- With **cover**, the drawing fills the heading's width and loses its top and bottom on wide headings (a 1,500 px
+  heading at 140 px tall shows only the middle 157 of the 240 units). If they want cover, ask their usual window width
+  and banner size and either compose inside the middle band (y 45-195) or use a wider box (`0 0 2400 240`) with the
+  important things away from the ends, and put `fit="cover"` on the banner in the pack. (Fill in Course artwork's
+  framing controls also covers, but from then on the banner is shown still.)
 
 ### Layout
 
@@ -47,8 +53,8 @@ y 214 --------------------------- one floor line -----------------------------
   on the same floor line. The scene's ground continues behind and past it; nothing else sits behind the letters.
 - **Scene** from about x 420 to 1600. Tallest things reach up to about y 24. Keep 12 units clear at the top.
 - **Quiet end:** the last 60-90 units at the right are ground only, so the picture ends calmly at the edge.
-- At Standard size a figure is about 64 px tall and a 2-unit line is about 1.2 px. Nothing that matters should be
-  smaller than 6 units, and the title should read at Compact (80 px tall).
+- At Medium size a figure is about 64 px tall and a 2-unit line is about 1.2 px. Nothing that matters should be
+  smaller than 6 units, and the title should read at Small (80 px tall).
 - One main event runs through the scene (see `animation.md`). 2-5 figures. Up to about 40 moving parts. 12 or 16 s cycle.
 - **Budget the width.** The scene has about 1,180 units. A figure takes about 50, a set piece 150-230. Three to five
   set pieces with their people fill it; if you come up short, make one piece larger and better told, never add filler.
@@ -67,8 +73,9 @@ y 214 --------------------------- one floor line -----------------------------
 
 ## Icon (`viewBox="0 0 100 100"`)
 
-Shown at 40 x 40 px in the bottom-left corner of the course row in the sidebar, and at 22 x 22 px beside the course
-name in assignment cards and headings.
+Shown at 40 x 40 px in the bottom-left corner of the course row in the sidebar, at 22 x 22 px beside the course
+name in assignment cards and headings, and at about 46 px in the course dock (at its default size) if the user keeps
+the courses there.
 
 - **One thing, standing on the page.** A single object from the course, or one small figure doing its most telling
   action. It has a short ground stroke and a small shadow under it so that it stands, not floats. Put that ground at
@@ -86,14 +93,15 @@ name in assignment cards and headings.
 
 ---
 
-## Border (`viewBox="0 0 360 110"`)
+## Border (the Frame slot, `viewBox="0 0 360 110"`)
 
 The frame of the course row in the sidebar (or the course strip). The image is **stretched over the whole row**
 (`preserveAspectRatio="none"`); the icon and the text of the row sit on top of it. A row is typically about
-255 x 87 px in the sidebar and 225 x 84 px in the course strip, and can be as short as about 50 px or as tall as
-about 140 px, so the image may be squeezed or pulled by up to about a third in either direction.
+240 x 87 px in the sidebar (210-260 px wide, growing with the window) and 225 x 84 px in the course strip across the
+top. A row is as tall as its content (the rows share the tallest one's height while they all fit on the screen),
+from about 50 px to about 140 px, so the image may be squeezed or pulled by up to about a third in either direction.
 
-### What is inside the row (measured in Canvas Harness 2.19 and 2.20; keep these areas clear)
+### What is inside the row (as Canvas Harness 3.9 lays it out; keep these areas clear)
 
 ```
  0        66                                                     360
@@ -109,7 +117,8 @@ about 140 px, so the image may be squeezed or pulled by up to about a third in e
 - **The icon stands in the bottom-left corner**, 40 x 40 px, on the bottom line of the frame (about x 7-65,
   y 55-109 in a typical row; higher up the box in a short row). Keep the bottom-left corner of the border a plain
   floor line for the icon to stand on.
-- **The text** begins 52 px from the left (x 72 in the box) and starts about 11 px from the top.
+- **The text** begins 51 px from the left (x 72 in the box in the widest rows, a little more in narrower ones) and
+  starts about 11 px from the top.
 - **Where border art can go:**
   - the **top strip**, up to about 9 units deep;
   - the **right strip**, up to about 9 units wide (the count sits in the top-right corner: keep that corner light);
@@ -127,7 +136,7 @@ about 140 px, so the image may be squeezed or pulled by up to about a third in e
   Stroke 1.6-2, with `vector-effect="non-scaling-stroke"` on every stroke so the line keeps its weight when the box
   is stretched.
 - **Its own ink colour.** Not black: a deep colour that belongs to the subject (a deep indigo, a leather brown, a
-  jade, a lacquer red), at least 4:1 against the pale sidebar (`#F3F1EA`). One paint colour beside it for the washes.
+  jade, a lacquer red), at least 4:1 against the pale sidebar (`#F5F4ED`). One paint colour beside it for the washes.
 - **8-12 small drawings on the edges and corners,** taken from the course: things that naturally run along a line or
   hang from it or stand on it (a scale, a ruler, a vine, a row of beads, a rail, a string of flags, a row of books,
   a wave, pegs, ticks). One **corner signature** that is unmistakably this subject.

@@ -1,6 +1,6 @@
 ---
 name: canvas-harness-art
-description: Draw hand-drawn, animated SVG course artwork for Canvas Harness in its house style - a living banner with the course name lettered into it, a sidebar icon, and a sidebar row border - as self-contained SVG that the Canvas Harness uploader accepts, handed over as one quick upload pack the user pastes into the extension. Use when someone asks for a Canvas Harness (or Folio) banner, course header art, a lettered course title, a course icon, a sidebar border or frame, or "art for my class" in this ink-and-wash stick-figure style.
+description: Draw hand-drawn, animated SVG course artwork for Canvas Harness in its house style - a living banner with the course name lettered into it, a sidebar icon, and a sidebar row border - as self-contained SVG that the Canvas Harness uploader accepts, handed over as one quick upload pack the user pastes into the extension. Use when someone asks for a Canvas Harness banner, course header art, a lettered course title, a course icon, a sidebar border or frame, or "art for my class" in this ink-and-wash stick-figure style.
 ---
 
 # Canvas Harness course art
@@ -20,22 +20,25 @@ has a hundred hand-wobbled paths. There is no image model in this workflow.
 |---|---|---|---|
 | Banner (title lettered into its left end) | `banner` | `<course>-banner.svg` | `viewBox="0 0 1680 240"` |
 | Icon | `icon` | `<course>-icon.svg` | `viewBox="0 0 100 100"` |
-| Border (the pack calls it the frame) | `frame` | `<course>-border.svg` | `viewBox="0 0 360 110"` |
+| Border (the Frame slot; `frame` in a pack) | `frame` | `<course>-border.svg` | `viewBox="0 0 360 110"` |
 
 You hand them over as **one quick upload pack**: a single block of text that holds every SVG and says which course
-and which slot each one is for. The user pastes it into **Quick upload** in Canvas Harness and reviews one list; they
+and which slot each one is for. The user pastes it into **Quick Upload** in Canvas Harness and reviews one list; they
 do not upload file by file and they never touch the extension's own files. Pasting is the default; the same text
 saved as a `.chpack` file works the same way. A pack can carry one piece or the art of many courses.
 `references/quick-upload.md` has the exact form.
 
-Quick upload is implemented in the public **CH2.21.0** release. Open **Customize workspace -> Quick upload**,
-paste and choose **Review pack**, or choose/drop a `.chpack` or `.txt` file. Review the previews and course matches,
-choose any unmatched course, leave unwanted pieces out, and apply the selected artwork. **Undo last pack** is
-available during the current workspace session if the affected artwork and banner options have not changed.
-Pack format version 1 supports `banner`, `icon` and `frame`; a lettered title belongs inside the banner SVG.
+**Works with** Canvas Harness 3.9 (Chrome Web Store and GitHub) and the 4.0 previews, with Features on Full (the
+default; Lite leaves course artwork out). Open **Make it yours -> Courses -> Quick Upload -> Or paste a pack**, paste
+and choose **Review pack**; a `.chpack` file goes in through **Make it yours -> More -> Add from a file** and is
+reviewed in the same place. Check the previews and each **Apply to** course, untick what is not wanted, then
+**Apply** (for example **Apply 3 pieces**). **Undo last pack** restores the previous artwork until the page is
+reloaded, if those pieces and banner options have not changed since. Pack format version 1 supports `banner`, `icon`
+and `frame`; the lettered title is inside the banner SVG, so after applying the user sets **Course artwork -> Course
+title -> In banner**.
 
 Plus a short note: what the banner shows, what moves, what each colour of the title stands for, and that the
-banners are drawn for banner size "Large" or "Standard", fit "contain", position "right".
+banners are drawn for banner size "Tall" or "Medium", fit "contain", position "right".
 
 ## Read before drawing
 
@@ -46,7 +49,7 @@ banners are drawn for banner size "Large" or "Standard", fit "contain", position
 | `references/format.md` | Always. What the uploader accepts and refuses. |
 | `references/animation.md` | Before animating. The motion rules and the idioms that work in this format. |
 | `references/checklist.md` | Before handing over. |
-| `references/quick-upload.md` | Before handing over. How to write the pack the user pastes or drops into Quick upload. |
+| `references/quick-upload.md` | Before handing over. How to write the pack the user pastes into Quick Upload or adds as a file. |
 | `templates/*.svg` | Working starting points: a rigged figure in a scene, an icon, a border. |
 | `scripts/hand.mjs` | Optional helpers for a generator script: hand-wobbled lines, loose washes, the figure with its joint rig. |
 | `examples/` | Finished sets made with this skill, with their plans. Look at them for the level expected, not to copy. |
@@ -57,7 +60,7 @@ banners are drawn for banner size "Large" or "Standard", fit "contain", position
 
 Ask only what you cannot decide well yourself, in one message. Proceed on sensible defaults if the user does not answer.
 
-1. The course name exactly as Canvas shows it (it is lettered into the banner, and Quick upload finds the course by it).
+1. The course name exactly as Canvas shows it (it is lettered into the banner, and Quick Upload finds the course by it).
 2. **What the course actually does this term:** units, experiments or projects, tools and instruments, texts,
    anything the class would recognise. This matters most. Generic knowledge of the subject is the fallback.
 3. Their course colour (a hex or a word). Default: clay.
@@ -118,11 +121,14 @@ node scripts/pack.cjs --course "<course name as in Canvas>" <folder with the thr
 Follow `references/quick-upload.md`:
 
 - **Default: paste.** The whole pack in one code block, with one line above it telling the user to copy the block
-  and paste it into Quick upload in Canvas Harness (Customize workspace). If it will not fit in one answer, send
-  several complete packs (banner; then icon and frame), never a pack that is cut off.
-- **Or a file,** if the user asks for one or you can write files: the same text as `<course>.chpack`.
-- For an older installed version without Quick upload, tell them the fallback: paste each SVG from the pack into
-  that slot's "Paste SVG" box under Customize workspace -> Course artwork.
+  and paste it into Quick Upload in Canvas Harness (Make it yours -> Courses -> Quick Upload -> Or paste a pack, then
+  Review pack). If it will not fit in one answer, send several complete packs (banner; then icon and frame), never a
+  pack that is cut off.
+- **Or a file,** if the user asks for one or you can write files: the same text as `<course>.chpack`, added with
+  Make it yours -> More -> Add from a file.
+- If Quick Upload is not there, its feature is off (Lite leaves it out): Full under Features in the popup brings it
+  back. Pasting each SVG into its slot's "Paste SVG" box under Course artwork also works, but a banner added that way
+  fills the heading and is shown without its animation.
 
 With it: the note described above, and anything you were unsure of (a detail of the subject you guessed, a choice
 the user may want changed). Offer one or two specific alternatives, not an open "anything else?".

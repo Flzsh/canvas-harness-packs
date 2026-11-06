@@ -17,13 +17,12 @@ Paste everything below into your AI assistant, then add your request at the end,
 > dissection and a kelp forest food web. My course colour is #2E6F73. Light theme. All three pieces.
 
 The assistant should answer with a short note and one code block: a **quick upload pack** holding the banner, the
-icon and the border. In public **CH2.21.0**, open **Customize workspace -> Quick upload**, paste the whole block
-and choose **Review pack** (or choose/drop a \`.chpack\` or \`.txt\` file). Check the previews and course matches,
-choose any unmatched course, leave unwanted pieces out, then apply the selected artwork. **Undo last pack** is
-available during the current workspace session if the affected artwork and banner options have not changed.
-For an older installed version without Quick upload, each \`<svg>...</svg>\` in the block is one piece: paste it
-into that slot's "Paste SVG" box under Customize workspace -> Course artwork. Format version 1 has three slots:
-banner, icon and frame; the lettered title is drawn inside the banner SVG.
+icon and the border. In Canvas Harness 3.9 or a 4.0 preview, open **Make it yours -> Courses -> Quick Upload -> Or
+paste a pack**, paste the whole block and choose **Review pack** (a \`.chpack\` file goes in through **Make it yours
+-> More -> Add from a file**). Check the previews and each **Apply to** course, untick what you do not want, then
+choose **Apply**. **Undo last pack** takes it back until the page is reloaded, if those pieces and banner options
+have not changed. Then set **Course artwork -> Course title -> In banner**: the name is drawn into the banner.
+Format version 1 has three slots: banner, icon and frame (the border).
 
 Where the text below mentions files (\`references/...\`, \`templates/...\`, \`scripts/...\`), their content is included
 further down in this same document; the script cannot be run from a pasted prompt, so check by hand against

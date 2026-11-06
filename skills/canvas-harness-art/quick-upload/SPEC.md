@@ -15,9 +15,9 @@ The words MUST, SHOULD and MAY are used in their usual specification sense.
 
 ## 1. What a pack is for
 
-Public Canvas Harness CH2.21.0 implements Quick upload under Customize workspace: paste or choose/drop a pack,
-review the artwork and targets, then apply the selected pieces. Manual per-slot upload remains a fallback for
-older installed versions.
+Canvas Harness 3.9.3 and 4.0 Preview 6 implement Quick upload: a pack is pasted under Make it yours -> Courses ->
+Quick Upload, or a `.chpack` file is chosen under Make it yours -> More -> Add from a file; the user reviews the
+artwork and targets, then applies the selected pieces. Per-slot upload under Course artwork remains, one SVG at a time.
 A **pack** is one piece of text that carries any number of SVGs together with directions saying where each one goes.
 The user gives the pack to Quick upload once and reviews one list.
 
@@ -33,11 +33,12 @@ A pack only ever adds or replaces what it names. Everything else the user has st
 | Way | What the user does |
 |---|---|
 | **Paste** (the default the skill asks assistants to use) | Copies the pack text from the assistant's answer and pastes it into the Quick upload box. |
-| **File** | Saves or receives the same text as a file named `something.chpack` and drops it on Quick upload (or picks it with a file chooser). |
+| **File** | Saves or receives the same text as a file named `something.chpack` and gives it to Quick upload with a file chooser or by dropping it (in Canvas Harness 3.9.3: Make it yours -> More -> Add from a file). |
 
 The file is the pasted text, byte for byte: UTF-8 plain text, with or without a byte order mark, with either kind of
 line ending. A reader MUST treat both ways identically, and MUST NOT rely on the file name or extension: a pack is
 recognised by its content (section 3). Quick upload SHOULD accept `.chpack` and `.txt` in its file chooser.
+(Add from a file in 3.9.3 takes `.chpack`; the text of a `.txt` is pasted.)
 
 ## 3. Syntax
 
@@ -125,7 +126,8 @@ A second `ch-pack` line inside a pack ends it (warning `second-header`); one pas
 | `position` | optional, banner only | `left`, `center` or `right`. |
 | `name` | optional | The label stored with the artwork (shown where the extension shows an upload's file name). Default: the first course name or the place, then the slot, for example `Marine Biology banner`. |
 
-How the slots map onto public Canvas Harness CH2.21.0 (`customization-model.js`):
+How the slots map onto Canvas Harness 3.9.3 (`SLOT_KEYS` in `quick-pack.js`; the course appearance of
+`customization-model.js`):
 
 | `slot` | Stored as | Rendered with kind |
 |---|---|---|
@@ -195,7 +197,7 @@ pack order. `applyOrder(parsed)` in the reference file returns the applicable pa
 
 1. **Read** the text with `parse` (or an equivalent that passes the test packs). If the result is not `ok`, show its
    error and stop. Nothing has been changed.
-2. **Validate** each part's SVG with the extension's own validator (`ReserveCustomArt.importSVG(svg, name)` in 2.20).
+2. **Validate** each part's SVG with the extension's own validator (`ReserveCustomArt.importSVG(svg, name)` in 3.9.3).
    A part whose SVG is refused gets that refusal as its error; the other parts are unaffected.
 3. **Resolve** every target (3.4) against the user's current courses.
 4. **Review.** Show one list, grouped by target, before anything is stored:
@@ -258,10 +260,10 @@ messages is not, and a reader may write its own.
 | Pack text | at most 3 MiB (3,145,728 bytes of UTF-8) |
 | Parts | at most 128 |
 | A directive | at most 2,048 characters |
-| Each SVG | whatever the artwork validator allows (256 KiB in 2.20) |
-| All of a user's artwork after applying | whatever the extension allows (2 MiB in 2.20) |
+| Each SVG | whatever the artwork validator allows (256 KiB in 3.9.3) |
+| All of a user's artwork after applying | whatever the extension allows (2 MiB of SVG in 3.9.3) |
 
-The paste box MUST accept at least 3 MiB of text. The per-slot "Paste SVG" boxes in 2.20 stop at 262,144
+The paste box MUST accept at least 3 MiB of text. The per-slot "Paste SVG" boxes in 3.9.3 stop at 262,144
 characters; that limit is too small for a pack.
 
 ## 8. Growing the format

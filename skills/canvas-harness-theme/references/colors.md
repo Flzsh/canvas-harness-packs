@@ -5,11 +5,11 @@ Six colours per mode carry the whole page:
 | Key | Used for |
 |---|---|
 | `bg` | the page itself, where the background picture is thin or absent |
-| `surface` | panels, cards, menus: where people read |
+| `surface` | panels, cards, menus, the course list: where people read |
 | `ink` | text and the main lines |
 | `muted` | secondary text: dates, counts, hints |
 | `line` | dividers and quiet outlines |
-| `accent` | links, the selected tab, highlights, buttons |
+| `accent` | links, the selected tab, highlights, buttons, switches |
 
 ## Rules the checker enforces (WCAG contrast)
 - `ink` on `bg`: at least 4.5:1. `ink` on `surface`: at least 4.5:1.
@@ -18,8 +18,8 @@ Six colours per mode carry the whole page:
 - Light mode: `surface` is the lightest or near it; dark mode: the darkest or near it. (Not enforced, but a theme that
   flips this looks broken beside Canvas's own pages.)
 
-Contrast is `(L1 + 0.05) / (L2 + 0.05)` of relative luminances; the checker prints each pair with its ratio and says
-which fails.
+Contrast is `(L1 + 0.05) / (L2 + 0.05)` of relative luminances; the checker names each pair that fails, with its ratio
+and the ratio it needs (`$.colors.light.muted: contrast on $.colors.light.surface is 2.07:1; requires 3:1`).
 
 ## Passing the rules in any style
 - Pastel or soft looks: keep the pastels for `bg`, `line`, frames and art; make `ink` a deep version of your main hue

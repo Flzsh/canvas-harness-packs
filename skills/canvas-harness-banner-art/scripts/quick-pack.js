@@ -1,4 +1,4 @@
-/* Canvas Harness quick upload pack: reference reader and writer (format version 1). MIT License.
+/* Canvas Harness quick upload pack: reference reader and writer (format version 1). GPL-3.0-only.
  *
  * A pack is plain text. It names itself, then lists parts; each part is a directive followed by its body:
  *
@@ -18,22 +18,61 @@
 (function (root) {
   'use strict';
   const VERSION = 1, MAX_PACK_BYTES = 3 * 1024 * 1024, MAX_PARTS = 128, MAX_DIRECTIVE = 2048;
-  const SLOTS = ['banner', 'icon', 'frame'], SLOT_ALIAS = { border: 'frame' };
+  const SLOTS = ['banner', 'icon', 'frame'], SLOT_ALIAS = Object.freeze(Object.assign(Object.create(null), { border: 'frame' }));
   // where each slot is stored in Canvas Harness's course appearance (coursePrefs[id] or overviewArt)
   const SLOT_KEYS = { banner: 'bannerArt', icon: 'iconArt', frame: 'borderArt' };
   const PLACES = ['overview', 'every-course'], FITS = ['contain', 'cover'], POSITIONS = ['left', 'center', 'right'];
   const bytes = s => (typeof TextEncoder === 'function' ? new TextEncoder().encode(s).length : Buffer.byteLength(s));
   const decode = s => s.replace(/&(quot|apos|amp|lt|gt);/g, (_, n) => ({ quot: '"', apos: "'", amp: '&', lt: '<', gt: '>' }[n]));
   const encode = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const wholeNumber = value => typeof value === 'string' && /^\d+$/.test(value) ? Number(value) : NaN;
 
   // The same normalisation Canvas Harness uses for course names: case, accents kept, punctuation and spacing ignored.
   function normalizeName(value) { return String(value == null ? '' : value).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ' ').trim(); }
 
   function readAttrs(text) {
-    const attrs = {}, re = /([A-Za-z][A-Za-z0-9-]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|“([^”]*)”|([^\s"'“”]+))/g;
-    let m, rest = text;
-    while ((m = re.exec(text))) { const key = m[1].toLowerCase(); if (!(key in attrs)) attrs[key] = decode(m[2] ?? m[3] ?? m[4] ?? m[5]).trim(); rest = rest.replace(m[0], ''); }
-    return { attrs, clean: !rest.trim() };
+    const attrs = Object.create(null), re = /([A-Za-z0-9-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|“([^”]*)”|([^\s"'“”]+))/y;
+    let at = 0, clean = true;
+    while (at < text.length) {
+      const separated = at === 0 || /\s/.test(text[at]);
+      while (at < text.length && /\s/.test(text[at])) at++;
+      if (at === text.length) break;
+      re.lastIndex = at;
+      const m = separated && re.exec(text);
+      if (m) {
+        const key = m[1].toLowerCase();
+        if (!Object.hasOwn(attrs, key)) attrs[key] = decode(m[2] ?? m[3] ?? m[4] ?? m[5]).trim();
+        at = re.lastIndex;
+        continue;
+      }
+      // Ignore a malformed token whole, including its quoted text; never recover a target from inside it.
+      clean = false;
+      let quote = '';
+      while (at < text.length) {
+        const c = text[at++];
+        if (quote) { if (c === quote) quote = ''; }
+        else if (c === '“') quote = '”';
+        else if (c === '"' || c === "'") quote = c;
+        else if (/\s/.test(c)) { at--; break; }
+      }
+    }
+    return { attrs, clean };
+  }
+
+  function readDirectives(text) {
+    const found = [], prefix = /<\?ch-([A-Za-z][A-Za-z0-9-]*)(?=[\s?])/y;
+    let at = 0, start;
+    while ((start = text.indexOf('<?ch-', at)) !== -1) {
+      prefix.lastIndex = start;
+      const m = prefix.exec(text);
+      if (!m) { at = start + 5; continue; }
+      const close = text.indexOf('?>', prefix.lastIndex);
+      // No terminator remains, so later prefixes cannot form complete directives either.
+      if (close === -1) break;
+      found.push({ kind: m[1].toLowerCase(), raw: text.slice(prefix.lastIndex, close), start, end: close + 2 });
+      at = close + 2;
+    }
+    return found;
   }
 
   function readArt(attrs, body, part) {
@@ -72,27 +111,30 @@
     const fail = (code, message) => { out.errors.push({ code, message }); return out; };
     if (typeof input !== 'string') return fail('not-text', 'A pack is text.');
     if (bytes(input) > MAX_PACK_BYTES) return fail('too-large', 'This pack is larger than 3 MiB. Send it as several smaller packs.');
-    const text = input.replace(/^﻿/, ''), re = /<\?ch-([A-Za-z][A-Za-z0-9-]*)(?=[\s?])([\s\S]*?)\?>/g, found = [];
-    let m;
-    while ((m = re.exec(text))) found.push({ kind: m[1].toLowerCase(), raw: m[2], start: m.index, end: re.lastIndex });
+    const text = input.replace(/^\uFEFF/, ''), found = readDirectives(text);
     const head = found.findIndex(d => d.kind === 'pack');
     if (head < 0) return fail('not-a-pack', 'This is not a Canvas Harness pack: it has no <?ch-pack ...?> line.');
     if (found.slice(0, head).length) out.warnings.push({ code: 'before-header', message: 'Pieces listed before the <?ch-pack ...?> line were ignored.' });
-    const header = readAttrs(found[head].raw).attrs, major = parseInt(header.version, 10);
+    if (found[head].raw.length > MAX_DIRECTIVE) return fail('bad-directive', 'The pack line exceeds the 2,048-character directive limit.');
+    const header = readAttrs(found[head].raw).attrs, major = wholeNumber(header.version);
     out.attrs = header; out.name = (header.name || '').slice(0, 120);
-    if (!Number.isFinite(major) || major < 1) return fail('bad-version', 'The pack does not state its format version (version="1").');
+    if (!Number.isInteger(major) || major < 1) return fail('bad-version', 'The pack does not state its format version as a positive whole number (version="1").');
     out.version = major;
     if (major > VERSION) return fail('newer-version', `This pack uses format version ${major}. Update Canvas Harness to read it.`);
     let ended = false, declared = null;
     for (let i = head + 1; i < found.length; i++) {
-      const d = found[i], next = found[i + 1], body = text.slice(d.end, next ? next.start : text.length);
+      const d = found[i], next = found[i + 1];
+      if (d.raw.length > MAX_DIRECTIVE && (d.kind === 'pack' || d.kind === 'end')) {
+        out.warnings.push({ code: 'bad-directive', message: `The <?ch-${d.kind}?> line exceeds the 2,048-character directive limit and was ignored.` });
+        continue;
+      }
       if (d.kind === 'pack') { out.warnings.push({ code: 'second-header', message: 'A second <?ch-pack ...?> line was treated as the end of the pack.' }); break; }
-      if (d.kind === 'end') { ended = true; const n = parseInt(readAttrs(d.raw).attrs.parts, 10); if (Number.isFinite(n)) declared = n; break; }
+      if (d.kind === 'end') { ended = true; const n = wholeNumber(readAttrs(d.raw).attrs.parts); if (Number.isInteger(n)) declared = n; break; }
       const index = out.parts.length + out.skipped.length + 1;
       if (index > MAX_PARTS) return fail('too-many-parts', `A pack holds at most ${MAX_PARTS} pieces.`);
       if (d.raw.length > MAX_DIRECTIVE) { out.skipped.push({ index, kind: d.kind, reason: 'bad-directive' }); continue; }
-      const { attrs, clean } = readAttrs(d.raw);
       if (d.kind !== 'art') { out.skipped.push({ index, kind: d.kind, reason: 'unknown-kind' }); continue; }
+      const { attrs, clean } = readAttrs(d.raw), body = text.slice(d.end, next ? next.start : text.length);
       const part = { index, kind: 'art', slot: null, target: null, name: '', svg: null, attrs, errors: [], warnings: [] };
       if (!clean) part.warnings.push({ code: 'directive-text', message: 'Part of this piece\'s directive could not be read and was ignored.' });
       readArt(attrs, body, part);
@@ -122,8 +164,12 @@
     if (!parts.length) throw new Error('A pack needs at least one piece.');
     if (parts.length > MAX_PARTS) throw new Error(`A pack holds at most ${MAX_PARTS} pieces.`);
     const attr = (k, v) => v === undefined || v === null || v === '' ? '' : ` ${k}="${encode(v)}"`;
+    const directive = (kind, raw) => {
+      if (raw.length > MAX_DIRECTIVE) throw new Error(`The ${kind} directive exceeds the 2,048-character limit.`);
+      return `<?ch-${kind}${raw}?>`;
+    };
     const lines = ['Canvas Harness quick upload pack. Paste all of this text into Quick upload in Canvas Harness, or drop this file there.', '',
-      `<?ch-pack version="${VERSION}"${attr('name', pack.name)}?>`];
+      directive('pack', attr('version', VERSION) + attr('name', pack.name))];
     for (const [i, p] of parts.entries()) {
       const slot = SLOT_ALIAS[p.slot] || p.slot, where = `Piece ${i + 1}`;
       if (!SLOTS.includes(slot)) throw new Error(`${where}: slot must be banner, icon or frame.`);
@@ -136,9 +182,9 @@
       const svg = String(p.svg || '').trim();
       if (!/^<svg[\s>]/.test(svg) || !/<\/svg>$/.test(svg)) throw new Error(`${where}: the SVG must start with <svg and end with </svg> (no XML declaration, nothing after it).`);
       if (/<\?ch-/i.test(svg)) throw new Error(`${where}: the SVG contains "<?ch-", which would break the pack.`);
-      lines.push('', `<?ch-art${attr('course', names.join('|'))}${attr('course-id', p.courseId)}${attr('place', p.place)}${attr('slot', slot)}${attr('fit', p.fit)}${attr('position', p.position)}${attr('name', p.name)}?>`, svg);
+      lines.push('', directive('art', `${attr('course', names.join('|'))}${attr('course-id', p.courseId)}${attr('place', p.place)}${attr('slot', slot)}${attr('fit', p.fit)}${attr('position', p.position)}${attr('name', p.name)}`), svg);
     }
-    lines.push('', `<?ch-end parts="${parts.length}"?>`, '');
+    lines.push('', directive('end', attr('parts', parts.length)), '');
     const text = lines.join('\n');
     if (bytes(text) > MAX_PACK_BYTES) throw new Error('The pack is larger than 3 MiB. Split it into several packs.');
     return text;

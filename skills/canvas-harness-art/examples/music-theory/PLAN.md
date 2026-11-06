@@ -85,7 +85,7 @@ Three ideas:
 2. Letters as black keys on a strip of keyboard. Rejected: reads as a font on a pattern, and says "piano", not "theory".
 3. **Chosen: the name is engraved as the music on a grand staff.** A sheet of manuscript on a flip-chart easel carries a real grand staff (brace, treble clef curling round the G line, bass clef with its dots either side of the F line, final double bar). MUSIC stands on the treble staff and THEORY on the bass staff, each letter exactly one staff tall. The letters are written the way notes are engraved: thin stems, thick sloping beams and slurs. The O is a whole note with its slanted hole, the Y is a tuning fork.
 
-Revised after the first render: the I was a quarter note (stem with a head in the first space). At Standard and Compact size it read as a J ("MUSJC"), so it became a stem between two beams.
+Revised after the first render: the I was a quarter note (stem with a head in the first space). At the Medium and Small banner sizes it read as a J ("MUSJC"), so it became a stem between two beams.
 
 Colours: plum = the notes of the name (the course colour: music ink can honestly be any colour); deep plum = the pen edge; ink = clefs, staff lines, bar lines; slate = the steel of the fork; paper = the manuscript sheet; kraft = the easel.
 
@@ -126,7 +126,7 @@ One thing: a **metronome** (key-colour case, ink rod, brass weight) standing on 
 
 **Title colours:** plum = the notes of the name (your course colour); dark plum = the pen edge; black = clefs, staff and bar lines; grey-blue = the steel tuning fork; white = manuscript paper.
 
-**Upload:** Customize workspace -> Course artwork -> choose Music Theory -> Upload or Paste SVG for each slot. Banner size "Large" or "Standard", fit "contain", position "right".
+**Upload:** paste the quick upload pack into Make it yours -> Courses -> Quick Upload -> Or paste a pack -> Review pack -> Apply 3 pieces; then Course artwork -> Music Theory -> Course title -> In banner. Banner size "Tall" or "Medium", fit "contain", position "right".
 
 **Things I was unsure of, and two alternatives:**
 

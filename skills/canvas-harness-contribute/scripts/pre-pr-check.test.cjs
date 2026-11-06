@@ -24,7 +24,7 @@ function fixture(t, initial = {}) {
   function write(file, data) { const target = path.join(repo, file); fs.mkdirSync(path.dirname(target), { recursive: true }); fs.writeFileSync(target, data); }
   function commit(message = 'Fixture change', extra = {}) { git(['add', '--all']); return git(['commit', '--no-verify', '--no-gpg-sign', '-m', message], extra); }
   function run(options = {}) {
-    const r = cp.spawnSync(process.execPath, [checker, ...(options.defaultCwd ? [] : [repo])], { cwd: options.cwd || (options.defaultCwd ? repo : temp), env: { ...env, ...options.env }, encoding: 'utf8', timeout: 30000 });
+    const r = cp.spawnSync(process.execPath, [checker, ...(options.defaultCwd ? [] : [repo]), ...(options.args || [])], { cwd: options.cwd || (options.defaultCwd ? repo : temp), env: { ...env, ...options.env }, encoding: 'utf8', timeout: 30000 });
     assert.ifError(r.error); return { status: r.status, output: r.stdout + r.stderr };
   }
   git(['init', '--initial-branch=main', `--template=${path.join(temp, 'empty')}`]);
@@ -48,6 +48,21 @@ test('missing origin/main fails with local setup guidance and does not create th
   const f = fixture(t); f.git(['update-ref', '-d', 'refs/remotes/origin/main']); const r = f.run();
   fails(r, 'BASE_REF'); assert.match(r.output, /git update-ref refs\/remotes\/origin\/main/); assert.match(r.output, /local|locally/i);
   assert.equal(f.git(['for-each-ref', '--format=%(refname)', 'refs/remotes/origin/main']), '');
+});
+test('--base preview/4.0 compares with local origin/preview/4.0 instead of origin/main', t => {
+  const f = fixture(t); f.git(['switch', '-c', 'preview/4.0', 'main']);
+  f.write('docs/preview-only.md', footer + '\n'); f.commit('Preview-only footer\n\n' + footer, { GIT_AUTHOR_EMAIL: 'fixture@example.test' });
+  f.git(['update-ref', 'refs/remotes/origin/preview/4.0', 'HEAD']); f.git(['switch', '-c', 'fixture-preview-work']);
+  f.write('extension/base.js', 'const baseline = false;\n'); f.commit();
+  const r = f.run({ args: ['--base', 'preview/4.0'] }); passes(r); assert.doesNotMatch(r.output, /EMAIL|GENERATED_WITH/);
+  passes(f.run({ args: ['--base=preview/4.0'] }));
+  const main = f.run(); fails(main, 'GENERATED_WITH'); assert.match(main.output, /^WARN AUTHOR_EMAIL\b/m);
+});
+test('a missing --base ref names that branch and an unsafe name is a usage failure', t => {
+  const f = fixture(t), r = f.run({ args: ['--base', 'preview/4.0'] });
+  fails(r, 'BASE_REF'); assert.match(r.output, /git update-ref refs\/remotes\/origin\/preview\/4\.0/);
+  assert.equal(f.git(['for-each-ref', '--format=%(refname)', 'refs/remotes/origin/preview']), '');
+  for (const args of [['--base', '../main'], ['--base', '-x'], ['--base=a//b'], ['--base'], ['--other'], ['--base', 'main', '--base', 'main']]) fails(f.run({ args }), 'USAGE');
 });
 test('an invalid repo fails without exposing an absolute source path', t => {
   const f = fixture(t), r = cp.spawnSync(process.execPath, [checker, f.temp], { env: f.env, encoding: 'utf8' });
@@ -187,9 +202,9 @@ test('lowercase titles and ordinary prose do not trigger identity warnings', t =
   const f = fixture(t); f.write('docs/sample.md', 'mr. example\nms. example\ndr. example\nUse an example fixture.\nfixture@users.noreply.github.com\n');
   const r = f.run(); passes(r); assert.doesNotMatch(r.output, /^WARN IDENTITY\b/m);
 });
-test('scope warnings include deleted and untracked paths outside the four allowed roots', t => {
+test('scope warnings include deleted and untracked paths outside the five allowed roots', t => {
   const f = fixture(t, { 'outside old.txt': 'Old\n' }); fs.unlinkSync(path.join(f.repo, 'outside old.txt'));
-  for (const file of ['extension/ok.txt', 'tests/ok.txt', 'docs/ok.txt', 'scripts/ok.txt', 'extensionish/new.txt', 'outside new.txt']) f.write(file, 'Ordinary fixture\n');
+  for (const file of ['extension/ok.txt', 'tests/ok.txt', 'docs/ok.txt', 'scripts/ok.txt', 'preview/ok.txt', 'extensionish/new.txt', 'outside new.txt']) f.write(file, 'Ordinary fixture\n');
   const r = f.run(); passes(r); assert.equal((r.output.match(/^WARN OUTSIDE_SCOPE\b/gm) || []).length, 3); assert.match(r.output, /outside old/); assert.match(r.output, /outside new/); assert.match(r.output, /extensionish/);
 });
 test('literal path handling accepts leading punctuation, Unicode and shell metacharacters', t => {

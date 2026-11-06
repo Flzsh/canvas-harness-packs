@@ -21,4 +21,6 @@
 
 ## Hand over
 - [ ] One pack (`scripts/pack.cjs`), course name exactly as Canvas shows it.
-- [ ] Two lines for the student: where to paste it (Make it yours -> Quick upload) and where to remove it.
+- [ ] Two lines for the student: where to paste it (Make it yours -> Courses -> Quick Upload -> Or paste a pack) and
+      how to take it back (Undo last pack, or Use default under Course artwork).
+- [ ] If the course name is lettered into the banner: tell them to set Course artwork -> Course title -> In banner.

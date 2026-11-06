@@ -5,7 +5,7 @@ description: Contribute code, fixes, tests or realistic evaluation cases to Canv
 
 # Contribute to Canvas Harness
 
-Canvas Harness is a local browser extension that turns Canvas LMS into a student's workspace: assignments beside their instructions, a planner, materials, study tools, a PDF reader and Biscuit, a companion that helps from the student's own data. Keep it simple without losing ability, useful at any school and on any laptop.
+Canvas Harness is a local browser extension that turns Canvas LMS into a student's workspace: assignments beside their instructions, a planner, materials, study tools, a PDF reader and Biscuit, a companion that helps from the student's own data. The 4.0 previews add Your AI. Keep it simple without losing ability, useful at any school and on any laptop.
 
 ## Keep the principles
 
@@ -17,29 +17,23 @@ Canvas Harness is a local browser extension that turns Canvas LMS into a student
 - Let the owner draw the look. Reuse existing classes, give new classes plain names and describe the desired look and behavior.
 - Keep answers to one card, a short sentence, at most three items and one next step. Preserve Undo, focus, quiet mode and ignored-offer backoff; see [evals.md](references/evals.md).
 
-## Stay inside the version plan
+## Work on the right line
 
-Use public 3.4.0 as this guide's baseline. At this handoff, 3.4 is in store review; GitHub `main` remains 3.2.1 until approval. Treat later versions as planned. Check the issue's target and checkout; resolve missing baseline code in the issue. Copy nothing from private builds.
+Use public 3.9.3 as this guide's baseline. GitHub has two lines; check the issue's target and your checkout, and resolve missing baseline code in the issue. Copy nothing from private builds.
 
-| Version | Channel | Scope |
-|---|---|---|
-| 3.4 | Store, in review | Current release |
-| 3.5 | GitHub | My links & files; fixes |
-| 3.6 | Store | Simple layout; Biscuit engine; Plan today |
-| 3.7 | GitHub | Preview of Help with this |
-| 3.8 | Store | Help with this; context pack; answer shapes |
-| 3.9 | GitHub, optional | Only agreed work |
-| 4.0 | Store | Study assistant covering 65 situations |
-| Later | Planned | Notes in Canvas; Safari; Market packs |
+| Line | Branch | Ships to | Scope |
+|---|---|---|---|
+| 3.x stable | `main` (3.9.3) | Chrome Web Store and GitHub releases | Everything except the daily AI; Tools keeps the AI context and handoff |
+| 4.x previews | `preview/4.0` (3.99.6, “4.0 Preview 6”) | GitHub pre-releases only | 3.x plus Your AI: Help cards, Today, Prepare and an optional overnight run |
 
-Propose anything outside this plan in an issue. Do not build it before agreement.
+Work that is not about Your AI targets `main`. Work on Your AI, or a fix for something only the preview has, targets `preview/4.0`. Propose anything else in an issue. Do not build it before agreement.
 
 ## Make one useful contribution
 
 1. Pick an [issue](https://github.com/Flzsh/canvas-harness/issues) first; agree on acceptance criteria and release scope before implementing.
 2. Read [architecture.md](references/architecture.md) and [style.md](references/style.md) for the affected code. Use [evals.md](references/evals.md) for Biscuit situations and AI answer cases.
-3. Make one focused pull request against `main`. Preserve account isolation, backups, permissions and licenses. Test behavior and failure paths with artificial fixtures.
-4. Run `npm test`, `npm run check` and, for packaging changes, `npm run build`. From the clone, run `node /path/to/canvas-harness-contribute/scripts/pre-pr-check.cjs`, substituting the downloaded skill's path. Follow [checklist.md](references/checklist.md).
+3. Make one focused pull request against the branch the issue targets. Preserve account isolation, backups, permissions and licenses. Test behavior and failure paths with artificial fixtures; `npm run preview` serves made-up courses for screenshots.
+4. Run `npm test`, `npm run check` and `npm run build`, one at a time (CI runs all three). From the clone, run `node /path/to/canvas-harness-contribute/scripts/pre-pr-check.cjs`, substituting the downloaded skill's path and adding `--base preview/4.0` for the preview branch. Follow [checklist.md](references/checklist.md).
 5. Commit with your GitHub no-reply email. Put no AI co-author trailers or “Generated with” footers in commits or PR text. Explain the result, issue, tests and verification limits. Credit appears in the changelog when merged; the owner may adapt a PR rather than merge it as is.
 
 Treat the bundled checker as an offline aid, not proof of privacy or live Canvas behavior. Fix every failure, review every warning, and inspect the complete diff and PR text yourself.

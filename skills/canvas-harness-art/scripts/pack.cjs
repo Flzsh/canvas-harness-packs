@@ -15,7 +15,7 @@
 //
 //   Check a pack (reads it the way the extension will, and validates every SVG in it):
 //     node scripts/pack.cjs --check file.chpack
-//   Open a pack into separate SVG files (for uploading one by one in a Canvas Harness without Quick upload):
+//   Open a pack into separate SVG files (to upload one at a time under Make it yours -> Courses -> Course artwork):
 //     node scripts/pack.cjs --unpack file.chpack [--out folder]
 //
 // No dependencies. Exit code 1 if anything is refused.
@@ -24,7 +24,7 @@ const vendored = path.join(__dirname, 'vendor', 'custom-art.js'), inRepo = path.
 const A = require(fs.existsSync(inRepo) ? inRepo : vendored);
 const argv = process.argv.slice(2), slug = s => P.normalizeName(s).replace(/ /g, '-') || 'pack', kib = n => (n / 1024).toFixed(1) + ' KiB';
 const die = m => { console.error(m); process.exit(2); };
-if (!argv.length || argv.includes('--help')) die(fs.readFileSync(__filename, 'utf8').split('\n').slice(1, 22).map(l => l.replace(/^\/\/ ?/, '')).join('\n'));
+if (!argv.length || argv.includes('--help')) die(fs.readFileSync(__filename, 'utf8').split('\n').slice(1, 21).map(l => l.replace(/^\/\/ ?/, '')).join('\n'));
 
 function report(text, label) {
   const r = P.parse(text); let bad = 0;
@@ -97,6 +97,6 @@ let text; try { text = P.build({ name, parts }); } catch (e) { die(e.message); }
 const file = path.resolve(out || path.join(fs.statSync(parts[0].file).isDirectory() ? parts[0].file : path.dirname(parts[0].file), slug(name) + '.chpack'));
 fs.writeFileSync(file, text);
 const { bad } = report(text, file);
-console.log(`\npack: ${file}\nTo use it: copy all of its text into Quick upload in Canvas Harness (Customize workspace), or drop the file there.`);
+console.log(`\npack: ${file}\nTo use it: in Canvas Harness open Make it yours -> Courses -> Quick Upload -> Or paste a pack, paste all of its text and choose Review pack;\nor choose the file in Make it yours -> More -> Add from a file, then review it under Courses -> Quick Upload.`);
 if (print) console.log('\n' + text);
 process.exit(bad ? 1 : 0);

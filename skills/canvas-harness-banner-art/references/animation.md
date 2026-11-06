@@ -27,7 +27,7 @@ finished picture:
 
 ## One clock
 
-Pick one cycle for the file: **12 s or 16 s** for a banner, **4-6 s** for an icon, **8-15 s** for a border.
+Pick one cycle for the file: **12 s or 16 s** for a banner, **4-6 s** for an icon, **8-15 s** for a frame.
 Give every animation that duration, or a whole fraction of it (6, 4, 3, 2 s for a 12 s cycle), so the picture as a
 whole repeats exactly. Stagger actions with keyframe percentages, not with `animation-delay` (a delay shifts the
 loop and breaks the shared rest moment). All CSS animations in one file start together when the image loads.
@@ -215,7 +215,7 @@ The image is rasterised as it animates. Keep it light:
 
 - Animate `transform` and `opacity` wherever possible; `stroke-dashoffset` for drawing on. Do not animate filters,
   gradients or large fills.
-- At most about 40 animated elements (elements that carry an animation) in a banner, 4 in an icon, 8 in a border.
+- At most about 40 animated elements (elements that carry an animation) in a banner, 4 in an icon, 8 in a frame.
 - Filters are slow when animated: use them on still parts, sparingly.
 - Small moving things over still large things. Never move the whole scene.
 

@@ -2,14 +2,17 @@
 
 Canvas Harness users do not edit the extension's files, and uploading one SVG at a time into the right course and the
 right slot is slow and easy to get wrong. So the art is handed over as **one pack**: plain text that carries every
-SVG together with a line saying where it goes. The user gives it to **Quick upload** in Canvas Harness once.
+SVG together with a line saying where it goes. The user gives it to **Quick Upload** in Canvas Harness once.
 
 There are two ways to deliver the same pack. They do exactly the same thing.
 
 | Way | When | What the user does |
 |---|---|---|
-| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick upload. |
-| **File** | The user asks for a file, or you can write files and the pack is long. | Drops `something.chpack` on Quick upload. |
+| **Paste** (the default) | Always, unless the user asks for a file. | Copies the pack from your answer, pastes it into Quick Upload (Make it yours -> Courses). |
+| **File** | The user asks for a file, or you can write files and the pack is long. | Adds `something.chpack` with **Add from a file** (Make it yours -> More), then reviews it in Quick Upload. |
+
+Either way Quick Upload lists every piece with a preview and the course it matched (**Apply to**), and nothing
+changes until the user chooses **Apply** (the button counts the pieces, for example **Apply 3 pieces**).
 
 A pack changes only what it names. One banner, or the banner, icon and frame of seven courses: both are one pack.
 
@@ -25,7 +28,7 @@ A pack changes only what it names. One banner, or the banner, icon and frame of 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">...the whole icon...</svg>
 
 <?ch-art course="Marine Biology" slot="frame"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110">...the whole border...</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 110">...the whole frame...</svg>
 
 <?ch-end parts="3"?>
 ```
@@ -41,7 +44,7 @@ A pack changes only what it names. One banner, or the banner, icon and frame of 
 |---|---|
 | `slot="banner"` | The banner (with the lettered course name inside it). |
 | `slot="icon"` | The course icon. |
-| `slot="frame"` | The sidebar border. (This is the file the rest of this skill calls the border.) |
+| `slot="frame"` | The frame of the course's row in the sidebar (`slot="border"` means the same). |
 | `course="Marine Biology"` | Which course. Use the name **as the user sees it in Canvas**; ask if you are not sure. |
 | `course="AP Biology\|AP Bio"` | Several names the course might go by, separated by `\|`. |
 | `course-id="48213"` | Only if the user gave you the number from the course's address (`/courses/48213`). It can sit beside `course`. |
@@ -77,8 +80,9 @@ something different for one course: the named course wins.
 
 - Put the whole pack in **one code block**, with nothing else inside the block. Outside a code block a chat
   application eats the angle brackets and the pack is lost.
-- Above the block, one line: *"Copy this whole block and paste it into Quick upload in Canvas Harness (Customize
-  workspace). It will show you what it is about to change before it changes anything."*
+- Above the block, one line: *"Copy this whole block. In Canvas Harness open Make it yours -> Courses -> Quick Upload
+  -> Or paste a pack, paste it and choose Review pack. It shows you what it is about to change before it changes
+  anything."*
 - **A pack must be complete in one message.** If the art is too long for one answer, send several packs, each
   whole (its own first line, its own end line), for example one for the banner and one for the icon and frame, or
   one per course. The user pastes each; they add up. Never split one SVG across messages, and never send a pack
@@ -100,18 +104,32 @@ The script takes the slot from each file's name (`...-banner.svg`, `...-icon.svg
 `...-frame.svg`), validates every SVG first, and refuses to pack one the uploader would refuse. `--print` also
 writes the pack text to the terminal so you can paste it into your answer.
 
-## If the user's Canvas Harness has no Quick upload
+The user adds the file in **Make it yours -> More -> Add from a file** (or drops it on that section); the review then
+waits under **Courses -> Quick Upload**.
 
-Quick upload arrives in a newer version of the extension than the one-at-a-time uploader. If the user cannot find
-it, the same pack still works by hand: each `<svg>...</svg>` in it is one piece. In **Make it yours ->
-Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG, paste just
-that SVG, and press **Apply SVG**. (With the script: `node scripts/pack.cjs --unpack file.chpack` writes the pieces
-back out as separate `.svg` files to upload.)
+## After it is applied
+
+- If the course name is lettered into the banner, the user sets **Course artwork -> Course title -> In banner** (it
+  shows once the course has a banner), so Canvas Harness does not draw the name a second time.
+- **Undo last pack** in Quick Upload takes the whole pack back until the page is reloaded, unless those pieces were
+  changed since. Later, **Use default** on a slot under Course artwork removes one piece, and **Reset this course's
+  artwork** removes all of a course's artwork.
+
+## If Quick Upload is not there
+
+Quick Upload is part of Full, the default set of features; Lite leaves course artwork out. Ask the user to choose
+Full under Features in the Canvas Harness popup (in Custom: switch on Course artwork and the artwork packs). If they
+keep the packs off, the same pack still works by hand: each `<svg>...</svg>` in it is one piece. In **Make it yours ->
+Courses -> Course artwork**, choose the course, open **Paste SVG** under the slot named on the line above that SVG,
+paste just that SVG, and press **Apply SVG**. An icon or frame added this way is the same as from a pack; a banner is
+framed to fill the heading and shown without its animation. (With the script: `node scripts/pack.cjs --unpack
+file.chpack` writes the pieces back out as separate `.svg` files to upload.)
 
 ## Before you send a pack
 
 - The first line is `<?ch-pack version="1" ...?>` and the last is `<?ch-end parts="N"?>` with the right N.
 - Every SVG has its own `<?ch-art ...?>` line directly before it, with a `slot` and one target.
-- Every SVG is whole and would pass section A of the checklist on its own.
+- Each directive stays within 2,048 characters between its kind and `?>`, after escaping attribute values.
+- Every SVG is whole and would pass "Works in Canvas Harness" in the checklist on its own.
 - The course names are the ones the user gave you, spelled the way Canvas shows them.
 - No teacher's name, school name or other private detail has slipped into a name or into the art.
