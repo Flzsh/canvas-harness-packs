@@ -15,6 +15,10 @@ Six colours per mode carry the whole page:
 - `ink` on `bg`: at least 4.5:1. `ink` on `surface`: at least 4.5:1.
 - `muted` on `surface`: at least 3:1.
 - `accent` on `surface`: at least 3:1 (it marks links and selected things).
+- Not checked, but needed: Home's modules have no fill of their own, so their text sits on `bg` as well. Give `muted`
+  and `accent` 3:1 on `bg` too (4.5:1 is better for link-sized text). Canvas Harness's own red for late and missing
+  work (#A62639 light, #F08C7E dark) is drawn on `bg`: a mid-grey light `bg` such as #B3B3B8 gives it only 3.4:1;
+  keep a light `bg` at about #CFCFD4 or lighter (or go dark).
 - Light mode: `surface` is the lightest or near it; dark mode: the darkest or near it. (Not enforced, but a theme that
   flips this looks broken beside Canvas's own pages.)
 

@@ -107,6 +107,102 @@
    "sha256": "c8965201fb0f02ed2f74f5604cde4227323acbaa3cc4cd7ca3e8ac07f231c518",
    "picture": "community/swiss-editorial-c8965201fb0f/picture.svg",
    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/5"
+  },
+  {
+   "id": "neo-brutalist-3d4fc8bc8076",
+   "name": "Neo-Brutalist",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/neo-brutalist-3d4fc8bc8076/neo-brutalist-3d4fc8bc8076.chtheme",
+   "size": 8608,
+   "sha256": "3d4fc8bc807610aabe55f2683125bced796370dadae5dbad5819de30cbd7aaaa",
+   "picture": "community/neo-brutalist-3d4fc8bc8076/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/11"
+  },
+  {
+   "id": "bauhaus-e63b50b22884",
+   "name": "Bauhaus",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/bauhaus-e63b50b22884/bauhaus-e63b50b22884.chtheme",
+   "size": 6734,
+   "sha256": "e63b50b22884a0830de066f2967757f53032019382d38537d84985120be3f638",
+   "picture": "community/bauhaus-e63b50b22884/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/12"
+  },
+  {
+   "id": "paper-cut-c4a22339d93b",
+   "name": "Paper Cut",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/paper-cut-c4a22339d93b/paper-cut-c4a22339d93b.chtheme",
+   "size": 10732,
+   "sha256": "c4a22339d93bd9f2bb56553c6db31f12277c8d0faa31d9ceee7af9cee8a7514e",
+   "picture": "community/paper-cut-c4a22339d93b/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/13"
+  },
+  {
+   "id": "classic-desktop-62954772c342",
+   "name": "Classic Desktop",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/classic-desktop-62954772c342/classic-desktop-62954772c342.chtheme",
+   "size": 9130,
+   "sha256": "62954772c342441188a4a2f9b80416cd5725680f2607f8deaa983b3ccf217d43",
+   "picture": "community/classic-desktop-62954772c342/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/14"
+  },
+  {
+   "id": "zen-ink-fa11cac3fe07",
+   "name": "Zen Ink",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/zen-ink-fa11cac3fe07/zen-ink-fa11cac3fe07.chtheme",
+   "size": 9978,
+   "sha256": "fa11cac3fe0769b1c22fb78e84f47770e3d49b7904346f4a4eb52f5bf3ff1fe4",
+   "picture": "community/zen-ink-fa11cac3fe07/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/15"
+  },
+  {
+   "id": "glass-0c76f1599bd7",
+   "name": "Glass",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/glass-0c76f1599bd7/glass-0c76f1599bd7.chtheme",
+   "size": 13200,
+   "sha256": "0c76f1599bd7dbf087750dd7edf3f5545ddbcaa2e2e4e0399b35d33ae174d284",
+   "picture": "community/glass-0c76f1599bd7/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/16"
+  },
+  {
+   "id": "pixel-arcade-02f5d03a51c1",
+   "name": "Pixel Arcade",
+   "by": "HarryX081125",
+   "licence": "CC BY 4.0",
+   "kind": "theme",
+   "file": "community/pixel-arcade-02f5d03a51c1/pixel-arcade-02f5d03a51c1.chtheme",
+   "size": 42455,
+   "sha256": "02f5d03a51c1d116306e6459c32fd901dfc871de1b690bc2bf928babae681a96",
+   "picture": "community/pixel-arcade-02f5d03a51c1/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/17"
+  },
+  {
+   "id": "bramble-fb2abec5011b",
+   "name": "Bramble",
+   "by": "Gary",
+   "licence": "CC0 1.0",
+   "kind": "pet",
+   "file": "community/bramble-fb2abec5011b/bramble-fb2abec5011b.chpet",
+   "size": 36506,
+   "sha256": "fb2abec5011bc52be9857353e464edc133c59c5db527fa5c60412215aaabf9ba",
+   "picture": "community/bramble-fb2abec5011b/picture.svg",
+   "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/18"
   }
  ]
 }

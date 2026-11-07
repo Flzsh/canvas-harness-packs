@@ -59,7 +59,8 @@ brings it back); Remove takes it out and brings back the look they had before.
 
 ## Rules that do not bend
 - Text must stay readable everywhere: the contrast rules in `colors.md` are checked and enforced.
-- Reading areas stay calm. Busy pictures go around and behind panels, never under text at full strength.
+- Reading areas stay calm. The background shows faintly behind Home's text and never behind the heading: the banner
+  is the picture of the band at the top, so keep the background calm (where each part shows: `parts.md`).
 - SVGs follow Canvas Harness's artwork rules (`format.md`): no scripts, no embedded images, nothing from outside.
 - **Original work only.** Inspired by anything, copied from nothing: no traced art, characters, logos, brand marks or
   copyrighted pictures and fonts. Photos and videos must be the student's own or openly licensed.
