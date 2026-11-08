@@ -10,7 +10,8 @@
   }
   function makeCard(doc, c, art) {
     if (!valid(c)) throw Error('Invalid community card.');
-    const card = doc.createElement('article'); card.className = 'card'; card.tabIndex = 0;
+    // A theme card is wide like the built-in themes beside it (16:7); other kinds keep the 2:1 card.
+    const card = doc.createElement('article'); card.className = c.kind === 'theme' ? 'card big' : 'card'; card.tabIndex = 0;
     Object.assign(card.dataset, { kind: KINDS[c.kind], id: c.id, name: c.name, inside: 'by ' + c.by + '|' + c.licence });
     // Only build-owned artwork enters innerHTML. All community text uses textContent.
     card.innerHTML = '<div class="pic">' + art.frame + '</div><footer><div><h3></h3><span class="kind"></span><div class="sub-credit"></div><div class="sub-licence"></div></div><button type="button" class="add">' + art.add + '</button></footer>';
