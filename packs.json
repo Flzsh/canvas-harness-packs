@@ -33,6 +33,14 @@
    "sha256": "90191ce461e527954b305e2378a6a43aa86278961a52ed281f23835b64a88d10"
   },
   {
+   "id": "ai-help",
+   "name": "AI help",
+   "kind": "feature",
+   "file": "packs/ai-help.json",
+   "size": 16,
+   "sha256": "2714376cd4604b1543274ae4cdceb141323e1a739e92bdc4f4ffff00c2d7633c"
+  },
+  {
    "id": "lantern-hills",
    "name": "Lantern hills",
    "kind": "course-art",
