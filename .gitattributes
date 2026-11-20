@@ -1,2 +1,4 @@
 packs/** -text
 packs.json -text
+megapacks/** -text
+megapack.html -text

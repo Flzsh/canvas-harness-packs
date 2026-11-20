@@ -1,0 +1,132 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Soul Passage · Canvas Harness Market</title>
+<style>
+@font-face{font-family:Literata;src:url(assets/literata.woff2) format('woff2');font-weight:400 800;font-display:swap}
+:root{--paper:#FAF9F5;--ink:#141413;--muted:#5E5D59;--clay:#A9522F}
+*{box-sizing:border-box}html{background:var(--paper)}
+body{margin:0;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:
+ radial-gradient(circle at 20% 10%,rgba(20,20,19,.025) 0 1px,transparent 1.5px) 0 0/7px 7px,var(--paper)}
+.wrap{--gut:clamp(16px,3vw,56px);max-width:none;margin:0;padding:0 var(--gut)}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0 4px}
+.brand{display:flex;align-items:center;gap:10px;font:700 21px Literata,Georgia,serif}.brand b{color:var(--clay)}
+.hero{position:relative;margin:6px calc(-1 * var(--gut)) 0}.hero>svg{display:block;width:100%;height:clamp(360px,30vw,620px)}
+.hero h1{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%) rotate(-1.2deg);margin:0;padding:10px 26px 12px;font:800 clamp(30px,4.4vw,58px)/1 Literata,Georgia,serif;background:var(--paper);border-radius:4px;box-shadow:4px 5px 0 rgba(20,20,19,.12);display:none}
+.bar{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:26px 0 0}
+.search{position:relative;width:340px;max-width:100%}.search svg{width:100%;height:auto;display:block}.search input{position:absolute;left:46px;top:9px;width:270px;border:0;background:transparent;font:15px system-ui;outline:none}
+h2.sec{font:800 26px Literata,Georgia,serif;margin:30px 0 4px;display:flex;align-items:center;gap:12px}h2.sec small{font:500 14px system-ui;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:30px 24px;padding:18px 0 10px}
+.grid.feature{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.card{position:relative;transition:transform .18s cubic-bezier(.2,.7,.3,1)}.card:hover{transform:translateY(-4px) rotate(-.4deg)}
+.pic{position:relative;aspect-ratio:2/1;background:#FFFDF8;box-shadow:5px 6px 0 rgba(20,20,19,.1)}.big .pic{aspect-ratio:16/7}
+.pic>img,.pic>svg:first-child{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pic .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.card footer{display:flex;align-items:center;gap:10px;padding:10px 4px 0}.card footer>div{flex:1;min-width:0}
+.card h3{margin:0;font:700 19px Literata,Georgia,serif}.kind{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.card h3{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card{cursor:pointer;outline:none}.card:focus-visible .pic{box-shadow:5px 6px 0 rgba(20,20,19,.1),0 0 0 3px #A9522F}
+.card.hide{display:none}.ftab{cursor:pointer;transition:transform .15s}.ftab.on{transform:translateY(-6px)}.ftab{user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}.ftab:focus{outline:none}.ftab:focus-visible path[stroke]{stroke:#A9522F;stroke-width:2.6}
+dialog.pack{border:0;padding:0;background:none;width:min(880px,94vw);max-height:92vh;overflow:visible}dialog.pack::backdrop{background:rgba(20,20,19,.45)}
+.pack .in{position:relative;padding:26px 28px 24px}.pack .sheetbg{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.pack .big{position:relative;aspect-ratio:16/7;background:#FFFDF8;box-shadow:5px 6px 0 rgba(20,20,19,.1)}.pack .big .frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.pack .big>svg:first-child,.pack .big>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pack h2{font:800 30px Literata,Georgia,serif;margin:18px 0 2px}.pack .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 18px;padding:0;list-style:none}
+.pack .chips li{font:600 13px Literata,Georgia,serif;padding:4px 10px;background:#EBDBBC;border-radius:3px;transform:rotate(-1deg);box-shadow:2px 2px 0 rgba(20,20,19,.12)}.pack .chips li:nth-child(2n){transform:rotate(1.2deg);background:#E3DACC}
+.pack .row{display:flex;align-items:center;gap:16px}.pack .x{margin-left:auto;background:none;border:0;font:600 15px Literata,Georgia,serif;cursor:pointer;color:var(--muted);text-decoration:underline wavy rgba(20,20,19,.3)}
+.add{background:none;border:0;padding:0;cursor:pointer;transform:rotate(-2deg);transition:transform .15s}.add:hover{transform:rotate(-4deg) translateY(-2px)}.tag{width:80px;height:40px;display:block}
+.stamp{width:92px;height:44px;transform:rotate(-7deg)}
+.lamp{animation:glow 3.4s ease-in-out infinite}.smoke{animation:smoke 6s ease-in-out infinite}@keyframes smoke{0%,100%{transform:translate(0,0);opacity:.9}50%{transform:translate(3px,-4px);opacity:.5}}.hand{animation:tick 60s steps(60) infinite}@keyframes tick{to{transform:rotate(360deg)}}@keyframes glow{0%,100%{opacity:.55}50%{opacity:.9}}
+.bunt{animation:sway 4.6s ease-in-out infinite}.b2 .bunt,.bunt.b2{animation-duration:5.3s}@keyframes sway{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+.biscuit .pet-tail{transform-box:fill-box;transform-origin:10% 20%;animation:tail 3.2s ease-in-out infinite}@keyframes tail{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-8deg)}}
+footer.site{margin:50px 0 30px;text-align:center;color:var(--muted);font-size:14px}
+@media (prefers-reduced-motion:reduce){.lamp,.bunt,.smoke,.hand,.biscuit *{animation:none!important}.card,.add{transition:none}}
+.card.is-soon .pic{opacity:.72}.stamp.soon{opacity:.85}#toast{position:fixed;left:50%;bottom:22px;translate:-50% 0;z-index:9;max-width:min(560px,calc(100vw - 32px));padding:10px 16px;background:#FFFDF8;color:#141413;font:600 14px/1.4 Literata,Georgia,serif;box-shadow:2px 3px 0 rgb(20 20 19/.18),inset 0 0 0 1.6px #141413;rotate:-.6deg}#toast[hidden]{display:none}#toast a{color:#A9522F}
+.pic .poses{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;gap:4%;padding-bottom:7%;background:linear-gradient(#F4EFF8,#FBF8F2)}.pic .poses img{width:27%;height:auto}
+a.add{display:inline-block;text-decoration:none;color:inherit}a.add[hidden]{display:none}
+.needs{margin:18px 0 0;padding:8px 14px;display:inline-block;background:#F3E6C8;color:#141413;font:600 14px/1.4 Literata,Georgia,serif;rotate:-.4deg;box-shadow:1.5px 2px 0 rgb(20 20 19/.12)}
+.sub-credit{font:italic 13px/1.3 Literata,Georgia,serif;color:var(--muted);margin-top:1px}.sub-licence{font-size:12px;color:var(--muted)}footer.site a{color:#A9522F}
+a.sub-submit{color:#A9522F;font:700 15px Literata,Georgia,serif;text-decoration:underline wavy rgb(169 82 47/.45);text-underline-offset:5px;white-space:nowrap}h2.sec a.sub-submit{margin-left:16px;font-size:16px;vertical-align:3px}header a.sub-submit{margin-left:auto;margin-right:20px}a.sub-submit:hover{color:#141413}
+.sub-community[hidden]{display:none}
+
+.mp-line{position:relative;display:block;height:9px;container-type:inline-size}.mp-line svg{position:absolute;left:0;top:0;width:100cqw;height:100%;display:block}.mp-done{position:absolute;left:0;top:0;height:100%;width:calc(var(--mp-p,0) * 1%);overflow:hidden;transition:width .4s ease-out}
+.mp .mp-link{color:inherit;text-decoration:none}.mp button.add:disabled{cursor:default}.mp button.add:disabled:hover{transform:rotate(-2deg)}
+.mp .tag{transition:opacity .25s}.mp[data-mp-state=wait] .tag{opacity:.45}.mp-progress[hidden]{display:none!important}
+.mp-amount{font:700 12px/1 Literata,Georgia,serif;font-variant-numeric:tabular-nums;white-space:nowrap;color:#141413}
+a.brand{color:inherit;text-decoration:none}.mp-top{flex-wrap:wrap;gap:10px 20px}
+.mp-page{width:min(960px,100%);margin:22px auto 0}.mp-page .in{isolation:isolate}.mp-page h1{font:800 30px/1.15 Literata,Georgia,serif;margin:18px 0 2px}
+.mp-page .mp-progress{display:flex;align-items:center;gap:14px;margin:16px 2px 0}.mp-page .mp-line{flex:1;min-width:0}.mp-page .mp-amount{font-size:15px}
+.mp-page .chips{margin-bottom:20px}</style></head><body><div class="wrap">
+<header class="top mp-top"><a class="brand" href="index.html"><svg class="" viewBox="0 0 30 30" aria-hidden="true" width="30" height="30"><path fill="#D97757" d="M25.8 15c0 2.6-1.1 6.1-2.9 7.9c-1.8 1.8-5.3 3.1-7.9 3.1c-2.6 0-6.1-1.2-7.9-3.1c-1.9-1.8-3.4-5.3-3.4-7.9c0-2.6 1.7-5.8 3.6-7.7c1.9-1.9 5.1-3.4 7.7-3.4c2.6-.1 6.2 1.2 8 3.1c1.8 1.9 2.8 5.4 2.8 8z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M14.7 3.7c2.6-.1 5.9 1.4 7.9 3.3c1.9 1.8 3.7 5.1 3.7 7.7c.1 2.6-1.5 5.9-3.4 7.8c-1.8 1.9-5 3.4-7.6 3.5c-2.6 .1-6.2-1-8.1-2.8c-1.9-1.7-3.2-5.2-3.3-7.9c0-2.6 1.2-6.1 3-7.9c1.8-1.8 5.9-2.7 7.8-2.9c1.9-.3 3.1 1.2 3.7 1.4"/><path fill="#FAF9F5" d="M18.9 15c0 1.2-.9 2.9-1.9 3.5c-1 .5-2.9 .5-3.9-.1c-1.1-.6-2.2-2.3-2.2-3.4c0-1.1 1.1-2.9 2.1-3.5c1-.5 3-.5 4 .1c1 .6 1.9 2.2 1.9 3.4z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M14.9 10.9c1.1 0 2.9 1 3.5 2c.7 1 .7 3 .1 4c-.5 1-2.2 2.1-3.4 2.1c-1.1 .1-2.9-1-3.5-1.9c-.5-1-.6-3 0-4c.5-.9 2.5-1.7 3.3-1.9c.8-.2 1.4 .7 1.7 .9"/></svg>Canvas Harness <b>Market</b></a><a class="add" href="https://chromewebstore.google.com/detail/bppjpjpbichfcbgajlppkgbbncbfohgd" target="_blank" rel="noopener"><svg class="" viewBox="0 0 190 40" aria-hidden="true" width="190" height="40"><path fill="#141413" opacity="0.14" d="M11.3 7.3c56.8-.2 113.6 0 170.3 .4c0 9.2-.4 18.3-.6 27.5c-57-.7-114-1.6-171-1.4c-2.2-4.2-4.4-8.4-6.7-12.5z"/><path fill="#E3DACC" d="M9.3 4.3c56.9-.1 113.8 .9 170.8 .6c-.1 9-.4 18-1 27c-57 .4-113.9-.8-170.8-.5c-2.5-4.4-5.1-8.8-7.6-13.2z"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8.9 3.8c57.1 1 114.3 .9 171.4 1.5c-.3 8.8-.9 17.6-1.6 26.5c-56.9-.1-113.8 .1-170.6-.8c-2.3-4.5-4.9-9-7.5-13.4c3.2-4.5 6.4-9.1 9.7-13.6"/><path fill="#FAF9F5" d="M13.7 18c0 .8-.7 1.9-1.4 2.3c-.6 .4-1.9 .3-2.6-.1c-.6-.4-1.3-1.5-1.3-2.2c0-.7 .6-1.9 1.3-2.3c.6-.3 1.9-.3 2.6 .1c.6 .4 1.3 1.4 1.4 2.2z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" d="M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 2 .1 2.6c-.4 .7-1.5 1.4-2.2 1.4c-.8 .1-1.9-.6-2.3-1.2c-.4-.7-.5-2-.1-2.7c.3-.6 1.7-1 2.2-1.1c.6-.1 .9 .4 1.1 .5"/><text x="96" y="23" font-family="Literata,Georgia,serif" font-weight="700" font-size="14" fill="#141413" text-anchor="middle">Get Canvas Harness</text></svg></a></header>
+<main class="pack mp mp-page" data-mp="soul-passage" data-engine="1" data-name="Soul Passage" data-mp-say><div class="in"><svg class="sheetbg" viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none"><path fill="#141413" opacity="0.12" d="M3 4.2c32.3-.5 64.7-.3 97-.9c-.4 32.3-1 64.6-1.1 96.8c-32.2-.7-64.4-1.3-96.6-1.3z"/><path fill="#FFFDF8" d="M1.7 2.6c32.3-.5 64.7-.4 97-1.4c-.4 32.4-.1 64.9-.8 97.3c-32.1-.5-64.2-.7-96.2-1.2z"/><path fill="none" stroke="#141413" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round" d="M2.1 3.4c32.2-.9 64.5-1.2 96.7-2.1c-.1 32.3-.6 64.7-.7 97c-32.2 0-64.4-.4-96.6-.7c1-31.7 1.5-63.4 2.3-95"/></svg>
+<div class="big"><img src="assets/soul-passage.jpg" alt=""><svg class="frame" viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none"><path fill="none" stroke="#141413" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" d="M1.2 .9c32.6 .4 65.2 .6 97.8 .5c-.2 32.6 .3 65.2-.1 97.9c-32.6-.3-65.2-.2-97.8-.4c1.1-32.6 1.4-65.3 2.3-97.9"/></svg></div><span class="mp-progress" hidden><span class="mp-line" role="progressbar" aria-label="Soul Passage" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="--mp-p:0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path fill="none" stroke="#141413" stroke-opacity=".22" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke" d="M1.8 4.7 Q18.1 3.6 26.1 4.2 Q34.1 4.8 42.1 4.3 Q50.1 3.9 58.1 4.5 Q66.2 5.1 74.2 4.4 Q82.2 3.6 90.0 4.0 L97.9 4.3"/></svg><span class="mp-done"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true"><path fill="none" stroke="#A9522F" stroke-width="3.2" stroke-linecap="round" vector-effect="non-scaling-stroke" d="M1.8 4.7 Q18.1 3.6 26.1 4.2 Q34.1 4.8 42.1 4.3 Q50.1 3.9 58.1 4.5 Q66.2 5.1 74.2 4.4 Q82.2 3.6 90.0 4.0 L97.9 4.3"/></svg></span></span><span class="mp-amount"></span></span>
+<h1>Soul Passage</h1><span class="kind">Megapack</span>
+<ul class="chips"><li>by Flzsh</li><li>24 hours of scenery</li><li>Eight lands</li><li>34 MB download</li><li>Needs Canvas Harness 4.2</li></ul>
+<div class="row"><button type="button" class="add" data-ch-pack="soul-passage" aria-label="Add Soul Passage"><svg class="tag" viewBox="0 0 80 40" aria-hidden="true"><path fill="#141413" opacity="0.14" d="M11.2 6.7c20.4 .7 40.8 1.2 61.2 1.4c-.5 9-.9 18.1-1.5 27.1c-20.4-.1-40.7-.9-61.1-1.5c-2.2-4.1-4.5-8.2-6.8-12.3z"/><path fill="#D4A27F" d="M9 3.9c20.2 .1 40.4 .5 60.7 1.1c-.4 9-.5 18-.9 27c-20.2-.3-40.5-.8-60.7-.9c-2.5-4.2-4.9-8.5-7.4-12.7z"/><path fill="none" stroke="#141413" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8.9 4.2c20.3 .6 40.5 .6 60.8 .6c.1 9-.3 18-.4 26.9c-20.4 .1-40.7-.9-61.1-.8c-2.4-4.3-4.9-8.6-7.3-12.9c3.2-4.4 6-9 9.2-13.4"/><path fill="#FAF9F5" d="M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z" transform="translate(1.4 1.8)"/><path fill="none" stroke="#141413" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" d="M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6"/><text x="41" y="23" font-family="Literata,Georgia,serif" font-weight="700" font-size="14" fill="#141413" text-anchor="middle">Add</text></svg></button></div>
+</div></main>
+<footer class="site">Canvas Harness Market</footer>
+</div>
+<p id="toast" role="status" hidden></p>
+<script>(function megapackStates(TAGS, WAIT) {
+  'use strict';
+  const roots = [...document.querySelectorAll('[data-mp]')].filter(r => Object.hasOwn(TAGS, r.dataset.mp));
+  if (!roots.length) return;
+  const state = new Map(), asked = new Map(), known = new Set(), FACE = { wait: 'add', ready: 'add', asked: 'adding', getting: 'adding', needs: 'needs', added: 'added' };
+  const sayHere = roots.some(r => r.hasAttribute('data-mp-say')), toast = document.getElementById('toast');
+  let engine = 0, waited = false, toastTimer = 0;
+  const say = text => { if (!toast) return; toast.textContent = text; toast.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => { toast.hidden = true; }, 6000); };
+  const need = id => Number(roots.find(r => r.dataset.mp === id).dataset.engine) || 1;
+  const able = id => engine >= need(id) || known.has(id);
+  const idle = id => able(id) ? 'ready' : engine || waited ? 'needs' : 'wait';
+  const set = (id, name, done = 0, total = 0) => {
+    state.set(id, { name, done, total });
+    const face = FACE[name];
+    for (const r of roots) {
+      if (r.dataset.mp !== id) continue;
+      r.dataset.mpState = name;
+      const b = r.querySelector('button.add[data-ch-pack]'), bar = r.querySelector('.mp-progress'), line = r.querySelector('.mp-line'), amount = r.querySelector('.mp-amount'), title = r.dataset.name;
+      if (b) {
+        if (b.dataset.mpFace !== face) { b.innerHTML = TAGS[id][face]; b.dataset.mpFace = face; }
+        b.disabled = name !== 'ready';
+        b.setAttribute('aria-label', face === 'add' ? 'Add ' + title : face === 'adding' ? 'Adding ' + title : title + ': ' + (face === 'needs' ? TAGS[id].needsText : 'Added'));
+      }
+      if (bar) bar.hidden = name !== 'getting';
+      if (name === 'getting' && line && amount) {
+        const p = Math.max(0, Math.min(100, done / total * 100)), mb = Math.max(1, Math.round(total / 1e6));
+        line.style.setProperty('--mp-p', p.toFixed(1)); line.setAttribute('aria-valuenow', String(Math.round(p)));
+        amount.textContent = (done >= total ? mb : Math.min(mb - 1, Math.floor(done / 1e6))) + ' of ' + mb + ' MB';
+      }
+      if (r.classList.contains('card')) r.classList.toggle('is-added', name === 'added');
+    }
+  };
+  const settle = id => { const s = state.get(id).name; if (s === 'wait' || s === 'needs') set(id, idle(id)); };
+  for (const r of roots) {
+    const id = r.dataset.mp, b = r.querySelector('button.add[data-ch-pack]');
+    if (!state.has(id)) set(id, 'wait');
+    // the bridge acts on the click first (it listens on the document, capturing); nothing else on the page should
+    if (b) b.addEventListener('click', e => {
+      e.stopPropagation();
+      if (!e.isTrusted || state.get(id).name !== 'ready') return;
+      set(id, 'asked'); clearTimeout(asked.get(id));
+      asked.set(id, setTimeout(() => { if (state.get(id).name === 'asked') set(id, idle(id)); }, 10000));
+    });
+    // on the front page the card goes to its own page (a path: the bridge refuses ?query and #hash)
+    const link = r.querySelector('a.mp-link');
+    if (link && r.classList.contains('card')) {
+      r.addEventListener('click', e => { if (e.target.closest('.add')) return; e.stopPropagation(); if (e.target.closest('a')) return; if (e.ctrlKey || e.metaKey || e.shiftKey) window.open(link.href, '_blank', 'noopener'); else location.assign(link.href); }, true);
+      r.addEventListener('keydown', e => { if (e.key !== 'Enter' || e.target.closest('.add')) return; e.stopPropagation(); if (!e.target.closest('a')) location.assign(link.href); }, true);
+    }
+  }
+  addEventListener('message', e => {
+    const d = e.data;
+    if (e.origin !== location.origin || !d || typeof d !== 'object' || d.ch !== 'market') return;
+    if (Number.isInteger(d.megapack) && d.megapack > 0) { engine = Math.max(engine, d.megapack); for (const id of state.keys()) settle(id); }
+    if (Array.isArray(d.installed)) for (const id of d.installed) if (state.has(id)) { known.add(id); set(id, 'added'); }
+    if (typeof d.id !== 'string' || !state.has(d.id)) return;
+    const id = d.id;
+    if (d.state === 'getting') {
+      if (state.get(id).name === 'added' || !Number.isFinite(d.total) || d.total <= 0 || !Number.isFinite(d.done) || d.done < 0) return;
+      known.add(id); clearTimeout(asked.get(id)); set(id, 'getting', Math.min(d.done, d.total), d.total);
+    } else if (d.state === 'added') { known.add(id); clearTimeout(asked.get(id)); set(id, 'added'); }
+    else if (d.state === 'failed') { clearTimeout(asked.get(id)); set(id, idle(id)); if (sayHere) say('Not added: ' + String(d.reason || 'try again').slice(0, 120)); }
+  });
+  const arm = () => setTimeout(() => { waited = true; for (const id of state.keys()) settle(id); }, WAIT);
+  if (document.readyState === 'complete') arm(); else addEventListener('load', arm, { once: true });
+})({"soul-passage":{"add":"<svg class=\"tag\" viewBox=\"0 0 80 40\" aria-hidden=\"true\"><path fill=\"#141413\" opacity=\"0.14\" d=\"M11.2 6.7c20.4 .7 40.8 1.2 61.2 1.4c-.5 9-.9 18.1-1.5 27.1c-20.4-.1-40.7-.9-61.1-1.5c-2.2-4.1-4.5-8.2-6.8-12.3z\"/><path fill=\"#D4A27F\" d=\"M9 3.9c20.2 .1 40.4 .5 60.7 1.1c-.4 9-.5 18-.9 27c-20.2-.3-40.5-.8-60.7-.9c-2.5-4.2-4.9-8.5-7.4-12.7z\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.9 4.2c20.3 .6 40.5 .6 60.8 .6c.1 9-.3 18-.4 26.9c-20.4 .1-40.7-.9-61.1-.8c-2.4-4.3-4.9-8.6-7.3-12.9c3.2-4.4 6-9 9.2-13.4\"/><path fill=\"#FAF9F5\" d=\"M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z\" transform=\"translate(1.4 1.8)\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6\"/><text x=\"41\" y=\"23\" font-family=\"Literata,Georgia,serif\" font-weight=\"700\" font-size=\"14\" fill=\"#141413\" text-anchor=\"middle\">Add<\/text><\/svg>","adding":"<svg class=\"tag mp-tag\" viewBox=\"0 0 95 40\" aria-hidden=\"true\" style=\"width:95px\"><path fill=\"#141413\" opacity=\"0.14\" d=\"M11.2 6.7c25.1 0.7 50.3 1.2 75.4 1.4c-0.5 9 -0.9 18.1 -1.5 27.1c-25.1 -0.1 -50.2 -0.9 -75.3 -1.5c-2.2 -4.1 -4.5 -8.2 -6.8 -12.3z\"/><path fill=\"#D4A27F\" d=\"M9 3.9c24.9 0.1 49.8 0.5 74.8 1.1c-0.4 9 -0.5 18 -0.9 27c-24.9 -0.3 -49.9 -0.8 -74.8 -0.9c-2.5 -4.2 -4.9 -8.5 -7.4 -12.7z\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.9 4.2c25 0.6 49.9 0.6 74.9 0.6c0.1 9 -0.3 18 -0.4 26.9c-25.1 0.1 -50.2 -0.9 -75.3 -0.8c-2.4 -4.3 -4.9 -8.6 -7.3 -12.9c3.2 -4.4 6 -9 9.2 -13.4\"/><path fill=\"#FAF9F5\" d=\"M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z\" transform=\"translate(1.4 1.8)\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6\"/><text x=\"48\" y=\"23\" font-family=\"Literata,Georgia,serif\" font-weight=\"700\" font-size=\"14\" fill=\"#141413\" text-anchor=\"middle\">Adding<\/text><\/svg>","needs":"<svg class=\"tag mp-tag\" viewBox=\"0 0 213 40\" aria-hidden=\"true\" style=\"width:213px\"><path fill=\"#141413\" opacity=\"0.14\" d=\"M11.2 6.7c65 0.7 130 1.2 195 1.4c-0.5 9 -0.9 18.1 -1.5 27.1c-65 -0.1 -129.7 -0.9 -194.7 -1.5c-2.2 -4.1 -4.5 -8.2 -6.8 -12.3z\"/><path fill=\"#E3DACC\" d=\"M9 3.9c64.4 0.1 128.7 0.5 193.4 1.1c-0.4 9 -0.5 18 -0.9 27c-64.4 -0.3 -129 -0.8 -193.4 -0.9c-2.5 -4.2 -4.9 -8.5 -7.4 -12.7z\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.9 4.2c64.7 0.6 129 0.6 193.7 0.6c0.1 9 -0.3 18 -0.4 26.9c-65 0.1 -129.7 -0.9 -194.7 -0.8c-2.4 -4.3 -4.9 -8.6 -7.3 -12.9c3.2 -4.4 6 -9 9.2 -13.4\"/><path fill=\"#FAF9F5\" d=\"M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z\" transform=\"translate(1.4 1.8)\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6\"/><text x=\"107.4\" y=\"23\" font-family=\"Literata,Georgia,serif\" font-weight=\"700\" font-size=\"13\" fill=\"#5E5D59\" text-anchor=\"middle\">Add in Canvas Harness 4.2<\/text><\/svg>","added":"<svg class=\"tag mp-tag\" viewBox=\"0 0 108 40\" aria-hidden=\"true\" style=\"width:108px\"><g transform=\"translate(8 0)\"><path fill=\"#141413\" opacity=\"0.14\" d=\"M11.2 6.7c27.1 0.7 54.2 1.2 81.3 1.4c-0.5 9 -0.9 18.1 -1.5 27.1c-27.1 -0.1 -54 -0.9 -81.1 -1.5c-2.2 -4.1 -4.5 -8.2 -6.8 -12.3z\"/><path fill=\"#D4A27F\" d=\"M9 3.9c26.8 0.1 53.6 0.5 80.6 1.1c-0.4 9 -0.5 18 -0.9 27c-26.8 -0.3 -53.8 -0.8 -80.6 -0.9c-2.5 -4.2 -4.9 -8.5 -7.4 -12.7z\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8.9 4.2c27 0.6 53.8 0.6 80.7 0.6c0.1 9 -0.3 18 -0.4 26.9c-27.1 0.1 -54 -0.9 -81.1 -0.8c-2.4 -4.3 -4.9 -8.6 -7.3 -12.9c3.2 -4.4 6 -9 9.2 -13.4\"/><path fill=\"#FAF9F5\" d=\"M13.7 18c0 .8-.7 1.9-1.4 2.2c-.7 .4-1.9 .4-2.6 0c-.6-.4-1.3-1.4-1.4-2.2c0-.8 .7-1.9 1.4-2.3c.6-.4 2-.4 2.6 0c.7 .4 1.4 1.5 1.4 2.3z\" transform=\"translate(1.4 1.8)\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.9 15.4c.8 0 1.9 .6 2.3 1.2c.4 .7 .4 1.9 0 2.6c-.3 .7-1.4 1.4-2.1 1.5c-.8 0-2-.7-2.3-1.3c-.4-.7-.4-2-.1-2.6c.4-.7 1.7-1.1 2.2-1.2c.6-.1 .9 .5 1.1 .6\"/><\/g><svg x=\"0\" y=\"3.5\" width=\"33\" height=\"33\" viewBox=\"0 0 34 34\"><g transform=\"rotate(-4 17 17)\"><path fill=\"#141413\" opacity=\"0.14\" transform=\"translate(2 2.4)\" d=\"M7.2 4.5 Q16.8 3.4 21.9 3.8 Q27.1 4.1 28.4 5.4 Q29.7 6.8 30.3 12.0 Q30.9 17.2 30.3 22.0 Q29.7 26.9 28.3 28.6 Q26.8 30.2 21.8 30.4 Q16.9 30.7 12.0 30.3 Q7.2 29.8 5.6 28.3 Q4.0 26.8 3.8 21.8 Q3.5 16.8 3.9 12.1 Q4.2 7.3 5.7 5.9 Q7.2 4.5 12.0 4.0 L16.8 3.4\"/><path fill=\"#FFFDF8\" d=\"M7.2 4.5 Q16.8 3.4 21.9 3.8 Q27.1 4.1 28.4 5.4 Q29.7 6.8 30.3 12.0 Q30.9 17.2 30.3 22.0 Q29.7 26.9 28.3 28.6 Q26.8 30.2 21.8 30.4 Q16.9 30.7 12.0 30.3 Q7.2 29.8 5.6 28.3 Q4.0 26.8 3.8 21.8 Q3.5 16.8 3.9 12.1 Q4.2 7.3 5.7 5.9 Q7.2 4.5 12.0 4.0 L16.8 3.4\"/><path fill=\"none\" stroke=\"#141413\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M6.9 4.4 Q16.9 3.1 22.0 3.6 Q27.1 4.0 28.4 5.6 Q29.7 7.2 30.2 12.1 Q30.8 17.0 30.4 22.0 Q30.0 27.0 28.3 28.5 Q26.7 30.0 21.7 30.4 Q16.7 30.9 12.0 30.3 Q7.3 29.7 5.6 28.3 Q4.0 26.8 3.8 21.9 Q3.6 16.9 4.0 12.0 Q4.3 7.1 5.6 5.8 Q6.9 4.4 11.9 3.8 L16.9 3.1\"/><path fill=\"none\" stroke=\"#A9522F\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10.2 17.6 Q14.6 22.6 19.2 17.0 L23.9 11.4\"/><\/g><\/svg><text x=\"64.8\" y=\"23\" font-family=\"Literata,Georgia,serif\" font-weight=\"700\" font-size=\"14\" fill=\"#141413\" text-anchor=\"middle\">Added<\/text><\/svg>","needsText":"Add in Canvas Harness 4.2"}}, 1500);</script>
+</body></html>

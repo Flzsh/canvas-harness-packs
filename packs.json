@@ -187,6 +187,18 @@
    "sha256": "02f5d03a51c1d116306e6459c32fd901dfc871de1b690bc2bf928babae681a96",
    "picture": "community/pixel-arcade-02f5d03a51c1/picture.svg",
    "issue": "https://github.com/Flzsh/canvas-harness-packs/issues/17"
+  },
+  {
+   "id": "soul-passage",
+   "name": "Soul Passage",
+   "kind": "megapack",
+   "file": "megapacks/soul-passage/1.json",
+   "size": 44020,
+   "sha256": "687430e114225b6cd8df8c493ca301ff84bf2fbeb5f50a17beea04cc1d1ffabe",
+   "bytes": 33695184,
+   "scene": "train",
+   "engine": 1,
+   "needs": "4.2.0"
   }
  ]
 }
